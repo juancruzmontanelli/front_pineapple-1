@@ -1,5 +1,7 @@
+import CreateUser from "./containers/CreateUser";
+
 function App() {
-  return <h1>Pineapple</h1>;
+  return <CreateUser />;
 }
 
 export default App;

@@ -66,16 +66,6 @@ const CreateUser = () => {
         </Grid>
 
         <Grid item md={12}>
-          <FormControl>
-            <InputLabel htmlFor="password">Confirma tu contraseña</InputLabel>
-            <Input
-              id="password"
-              type="password"
-              aria-describedby="password-helper"
-            />
-          </FormControl>
-        </Grid>
-        <Grid item md={12}>
           <Button variant="contained" color="success">
             Continuar
           </Button>
