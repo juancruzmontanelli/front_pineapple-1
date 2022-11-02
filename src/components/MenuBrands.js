@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-const brands = ["Motorola", "Samsung", "Apple", "TCL"];
+const brands = ["Motorola", "Samsung", "Apple", "TCL", "Xiaomi", "Huawei", "LG"];
 
 const MenuBrands = () => {
   
@@ -19,7 +19,7 @@ const MenuBrands = () => {
   return (
     <div>
       <IconButton
-        sx={{ color: "orange" }}
+        sx={{ color: "#ed7203" }}
         aria-label="more"
         id="long-button"
         aria-controls={open ? "long-menu" : undefined}

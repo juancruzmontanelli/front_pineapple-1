@@ -24,7 +24,7 @@ const Navbar = () => {
   });
 
   const StyledButton = styled(Button)({
-    color: "orange",
+    color: "#ed7203",
   });
   const LoginBox = styled(Box)({
     display: "flex",
@@ -39,7 +39,7 @@ const Navbar = () => {
             <>
               <DrawerComp />
               <SearchBar />
-              <IconButton sx={{ color: "orange" }}>
+              <IconButton sx={{ color: "#ed7203" }}>
                 <LocalGroceryStoreIcon />
               </IconButton>
             </>
@@ -55,7 +55,7 @@ const Navbar = () => {
               <LoginBox>
                 <StyledButton>Iniciar sesión</StyledButton>
                 <StyledButton>Registro</StyledButton>
-                <IconButton sx={{ color: "orange" }} aria-label="search">
+                <IconButton sx={{ color: "#ed7203" }} aria-label="search">
                   <LocalGroceryStoreIcon />
                 </IconButton>
               </LoginBox>
