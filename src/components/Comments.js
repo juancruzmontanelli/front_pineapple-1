@@ -17,7 +17,7 @@ const Comments = ( { product } ) => {
 
   useEffect(() => {
     axios
-      .get(`/api/comment/${product.id}`)
+      .get(`/api/comment/${product.url}`)
       .then((res) => setComments(res.data))
       .catch((err) => {
         console.log(err);
@@ -31,12 +31,12 @@ const Comments = ( { product } ) => {
   const handleRating = (e) => {
     setRating(e.target.value);
   };
-
+console.log(product.id)
   //falta sumar el userId y el productId al post
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`/api/comment/${product.id}`, { rating, commit })
+      .post(`/api/comment/${product.url}`, { rating, commit })
       .then((userRating) => setCommit(userRating.data))
       .catch((err) => console.log(err));
   };

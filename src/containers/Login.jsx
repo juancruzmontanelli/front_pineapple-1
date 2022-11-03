@@ -10,13 +10,18 @@ import {
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../state/user"
+
+
 
 const Login = () => {
+  
+  const dispatch = useDispatch()
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
   const [isValidPass, setIsValidPass] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -29,7 +34,7 @@ const Login = () => {
           pass: pass,
         })
         .then((response) => {
-          setUser(response);
+          dispatch(setUser(response.data));
           navigate("/");
         })
         .catch((error) => {
@@ -92,7 +97,7 @@ const Login = () => {
             <Input
               required
               id="pass"
-              type="text"
+              type="password"
               aria-describedby="password-helper"
               onChange={handlePass}
             />

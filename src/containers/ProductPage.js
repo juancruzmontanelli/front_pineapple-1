@@ -71,7 +71,7 @@ const ProductPage = () => {
               {product.name}
             </Typography>
             <Typography variant="h4" color="initial">
-              <strong>$ {product.price}</strong>
+              <strong>US$ {product.price}</strong>
             </Typography>
           </Box>
           <Box display={"flex"}>
