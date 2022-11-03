@@ -1,14 +1,32 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ProductItem from "../commons/ProductItem";
+import axios from 'axios'
+import { setProducts } from "../state/products";
+
+
 
 const HomeProducts = () => {
-  const arr = new Array(20).fill(1);
+  
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
+
+  useEffect(() => {
+    axios
+      .get("/api/products")
+      .then((res) => dispatch(setProducts(res.data)))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+
   return (
     <Grid item xs={9}>
       <Grid container spacing={2}>
-        {arr.map((value, index) => (
-          <ProductItem key={index} />
+        {products.map((product, index) => (
+          <ProductItem data={product} key={index} />
         ))}
       </Grid>
     </Grid>
