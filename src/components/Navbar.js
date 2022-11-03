@@ -57,8 +57,12 @@ const Navbar = () => {
                 <SearchBar />
               </Box>
               <LoginBox>
-                <StyledButton>Iniciar sesión</StyledButton>
+                <Link to={"/login"}>
+                  <StyledButton>Iniciar sesión</StyledButton>
+                </Link>
+                <Link to={"/register"}>
                 <StyledButton>Registro</StyledButton>
+                </Link>
                 <Link to="/cart">
                   <IconButton sx={{ color: "#ed7203" }} aria-label="cart">
                     <Badge badgeContent={4} color="secondary">

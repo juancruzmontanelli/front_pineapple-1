@@ -7,8 +7,8 @@ import Footer from "./components/Footer";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import CreateUser from "./containers/CreateUser";
+import CreatesSuccess from "./containers/CreateSuccess";
 import Cart from "./containers/Cart";
-
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<CreateUser />} />
+          <Route path="/createSuccess" element={<CreatesSuccess />} />
 
           {/* Rutas de usuario [Solo logueado] */}
           <Route path="/account/orders" element={<h1>User orders</h1>} />

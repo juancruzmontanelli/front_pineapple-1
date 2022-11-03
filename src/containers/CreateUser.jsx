@@ -1,34 +1,69 @@
-import React from "react";
-// import FormControl from "@mui/material/FormControl";
+import React, { useState } from "react";
 import {
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   FormHelperText,
   Grid,
   Input,
   InputLabel,
-  TextField,
 } from "@mui/material";
 import { Container } from "@mui/system";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const CreateUser = () => {
-  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [isValidPass, setIsValidPass] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    isValidEmail && isValidPass ? (
+      axios
+        .post("/api/user/register", {
+          name: name,
+          address: address,
+          email: email,
+          pass: pass,
+        })
+        .then((response) => {
+          navigate("/createSuccess");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    ) : (
+      <FormHelperText error>Datos incorrectos</FormHelperText>
+    );
+  };
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+  const handleAddress = (e) => {
+    setAddress(e.target.value);
+  };
+  const handleEmail = (e) => {
+    let emailInput = e.target.value;
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handlePass = (e) => {
+    let passInput = e.target.value;
+    setPass(passInput);
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
+    regex.test(passInput) ? setIsValidPass(true) : setIsValidPass(false);
   };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <Grid
         container
         display="flex"
@@ -41,69 +76,81 @@ const CreateUser = () => {
         <Grid item md={12}>
           <FormControl>
             <InputLabel htmlFor="name">Nombre</InputLabel>
-            <Input id="name" type="text" aria-describedby="name-helper" />
+            <Input
+              required
+              id="name"
+              type="text"
+              aria-describedby="name-helper"
+              onChange={handleName}
+            />
             <FormHelperText id="name-helper">Nombre y apellido</FormHelperText>
           </FormControl>
         </Grid>
         <Grid item md={12}>
           <FormControl>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input id="email" type="email" aria-describedby="email-helper" />
-            <FormHelperText id="email-helper">
-              Dirección de correo electrónico
+            <InputLabel htmlFor="address">Dirección de correo</InputLabel>
+            <Input
+              required
+              id="address"
+              type="text"
+              aria-describedby="address-helper"
+              onChange={handleAddress}
+            />
+            <FormHelperText id="address-helper">
+              Dirección de correo
             </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item md={12}>
+          <FormControl>
+            <InputLabel htmlFor="name"> Correo electrónico</InputLabel>
+            <Input
+              required
+              id="email"
+              type="email"
+              aria-describedby="email-helper"
+              onChange={handleEmail}
+            />
+            {isValidEmail ? (
+              <FormHelperText> Correo electrónico</FormHelperText>
+            ) : (
+              <FormHelperText error>
+                Dirección de correo incorrecta
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
         <Grid item md={12}>
           <FormControl>
             <InputLabel htmlFor="password">Contraseña</InputLabel>
             <Input
-              id="password"
+              required
+              id="pass"
               type="password"
               aria-describedby="password-helper"
+              onChange={handlePass}
             />
+            {isValidPass ? (
+              <FormHelperText>Ingrese su contraseña </FormHelperText>
+            ) : (
+              <FormHelperText error>
+                Debe tener al menos 6 caracteres,
+                <br /> una mayúscula, una minúscula,
+                <br />
+                un número y un caracter especial
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
 
         <Grid item md={12}>
-          <Button variant="contained" color="success">
+          <Button variant="contained" color="success" type="submit">
             Continuar
           </Button>
         </Grid>
       </Grid>
-    </>
+    </form>
   );
 };
 
 export default CreateUser;
-
-{
-  /* <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Usuario
-        </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Crear Usuario</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-                Para crear
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-              variant="standard"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Subscribe</Button>
-          </DialogActions>
-        </Dialog>
-      </div> */
-}
