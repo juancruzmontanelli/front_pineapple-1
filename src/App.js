@@ -3,11 +3,12 @@ import { Routes, Route } from "react-router";
 import { Container } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import ProductPage from "./containers/ProductPage";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import CreateUser from "./containers/CreateUser";
 import Cart from "./containers/Cart";
+
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
           {/* Rutas publicas */}
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<h1>Search</h1>} />
-          <Route path="/product/:slug" element={<h1>Product</h1>} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<CreateUser />} />

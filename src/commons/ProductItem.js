@@ -2,20 +2,22 @@ import React from "react";
 import { Button, Grid, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/system";
+import { Link } from "react-router-dom";
 
-const ProductItem = () => {
+
+const ProductItem = ( { data } ) => {
   return (
-    <Grid xs={3} item>
+    <Grid xs={3} item component={Link} to={`/product/${data.id}`}>
       <ItemLink href="/">
         <img
           style={{ width: "100%" }}
           alt=""
-          src="https://tienda.personal.com.ar/_next/image?url=https%3A%2F%2Ftienda.personal.com.ar%2Fimages%2FS22_Ultra_FIT_min_dbaf5f0eac.png&w=1080&q=75"
+          src={data.img}
         />
       </ItemLink>
       <ItemDescription>
         <ItemLink href="/">
-          <ItemTitle>Samsung Galaxy S22</ItemTitle>
+          <ItemTitle>{data.name}</ItemTitle>
         </ItemLink>
         <Rating
           name="read-only"
@@ -24,7 +26,7 @@ const ProductItem = () => {
           sx={{ mt: "4px" }}
           readOnly
         />
-        <ItemPrice>$120.870</ItemPrice>
+        <ItemPrice>${data.price}</ItemPrice>
         <Button variant="text" size="small">
           Ver más detalles
         </Button>
