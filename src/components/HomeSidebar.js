@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Grid, Typography } from "@mui/material";
-import { Box, Stack, Item } from "@mui/system";
+import { Box, Stack } from "@mui/system";
 import React from "react";
 
 const HomeSidebar = () => {

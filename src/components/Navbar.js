@@ -13,7 +13,9 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  Badge,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -33,7 +35,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar sx={{ background: "black" }} position={"static"}>
+      <AppBar sx={{ background: "black", mb: "10px" }} position={"static"}>
         <StyledToolBar>
           {isMatch ? (
             <>
@@ -47,7 +49,9 @@ const Navbar = () => {
             <>
               <Box display="flex" gap={5}>
                 <MenuBrands />
-                <img src={logoPineapple} alt="logo pineapple" height={50} />
+                <Link to="/">
+                  <img src={logoPineapple} alt="logo pineapple" height={50} />
+                </Link>
               </Box>
               <Box>
                 <SearchBar />
@@ -55,9 +59,13 @@ const Navbar = () => {
               <LoginBox>
                 <StyledButton>Iniciar sesión</StyledButton>
                 <StyledButton>Registro</StyledButton>
-                <IconButton sx={{ color: "orange" }} aria-label="search">
-                  <LocalGroceryStoreIcon />
-                </IconButton>
+                <Link to="/cart">
+                  <IconButton sx={{ color: "orange" }} aria-label="cart">
+                    <Badge badgeContent={4} color="secondary">
+                      <LocalGroceryStoreIcon />
+                    </Badge>
+                  </IconButton>
+                </Link>
               </LoginBox>
             </>
           )}
