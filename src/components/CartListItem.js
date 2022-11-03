@@ -7,31 +7,38 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { priceFormatter } from "../utils/formatter";
+import { totalPriceFormatter } from "../utils/formatter";
 import { isNumeric } from "../utils/validation";
 import CartQuantitySelector from "./CartQuantitySelector";
+import {
+  incrementQuantity,
+  decrementQuantity,
+  setQuantity,
+  removeProduct,
+} from "../state/cart";
+import { useDispatch } from "react-redux";
 
 const CartListItem = ({ data }) => {
-  const { id, title, photo, quantity, price } = data;
-  const [total, setTotal] = useState(price);
-  const [totalQuantity, setTotalQuantity] = useState(quantity);
+  const { id, title, img, quantity, price } = data;
+  const dispatch = useDispatch();
+  const total = quantity * price;
 
   const handleQuantity = (type, total) => {
-    if (type === "decrement" && totalQuantity === 1) return false;
-    if (type === "set" && (!isNumeric(total) || Number(total) === 0))
+    if (type === "decrement" && quantity === 1) return false;
+    if (type === "set" && (!isNumeric(total) || total === Number(0)))
       return false;
 
-    let newQuantity;
     if (type === "set") {
-      newQuantity = Number(total);
+      dispatch(setQuantity({ id, quantity: Number(total) }));
     } else if (type === "increment") {
-      newQuantity = totalQuantity + 1;
+      dispatch(incrementQuantity(id));
     } else if (type === "decrement") {
-      newQuantity = totalQuantity - 1;
+      dispatch(decrementQuantity(id));
     }
+  };
 
-    setTotalQuantity(newQuantity);
-    setTotal(price * newQuantity);
+  const handleRemoveItem = () => {
+    dispatch(removeProduct(id));
   };
   return (
     <Card
@@ -46,7 +53,7 @@ const CartListItem = ({ data }) => {
       <CardMedia
         sx={{ maxWidth: "100px" }}
         component="img"
-        image={photo}
+        image={img}
         alt={title}
       />
       <CardContent
@@ -64,15 +71,13 @@ const CartListItem = ({ data }) => {
           variant="text"
           color="error"
           sx={{ alignSelf: "flex-start" }}
+          onClick={handleRemoveItem}
         >
           Eliminar
         </Button>
       </CardContent>
 
-      <CartQuantitySelector
-        value={totalQuantity}
-        handleQuantity={handleQuantity}
-      />
+      <CartQuantitySelector value={quantity} handleQuantity={handleQuantity} />
 
       <Box
         sx={{
@@ -83,11 +88,11 @@ const CartListItem = ({ data }) => {
         }}
       >
         <Typography variant="h5" component="span">
-          ${priceFormatter(total)}
+          ${totalPriceFormatter(total)}
         </Typography>
-        {totalQuantity > 1 && (
+        {quantity > 1 && (
           <Typography variant="caption" component="span">
-            {totalQuantity}x ${price}
+            {quantity}x ${price}
           </Typography>
         )}
       </Box>

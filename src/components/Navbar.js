@@ -21,6 +21,7 @@ import {
   Typography
 } from "@mui/material";
 import { Link } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../state/user"
 import axios from 'axios'
@@ -28,7 +29,9 @@ import axios from 'axios'
 const Navbar = () => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
+  const totalItemsCart = useSelector((state) => state.cart.length);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const StyledToolBar = styled(Toolbar)({
