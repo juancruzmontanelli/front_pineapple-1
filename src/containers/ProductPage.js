@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Comments from "../components/Comments";
+import axios from 'axios'
 import { Grid, Typography, Button, Box, Tab } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
@@ -11,19 +12,22 @@ import BatteryChargingFullOutlinedIcon from "@mui/icons-material/BatteryCharging
 import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import { useParams } from "react-router";
 
 const ProductPage = () => {
   const [value, setValue] = React.useState("1");
   const [product,setProduct] = useState({})
 
+  const { id } = useParams()
+
   useEffect(() => {
     axios
-      .get(`/api/products/id`)
+      .get(`/api/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,7 +40,7 @@ const ProductPage = () => {
           <img
             style={{ width: "75%", marginTop: 20 }}
             alt=""
-            src="https://tienda.personal.com.ar/_next/image?url=https%3A%2F%2Ftienda.personal.com.ar%2Fimages%2FS22_Ultra_FIT_min_dbaf5f0eac.png&w=1080&q=75"
+            src={product.img}
           />
         </Grid>
         <Grid
@@ -48,16 +52,16 @@ const ProductPage = () => {
         >
           <Box>
             <Typography variant="h3" color="initial">
-              Samsung Galaxy A33 5G
+              {product.name}
             </Typography>
             <Typography variant="h4" color="initial">
-              <strong>$ 68.399</strong>
+              <strong>$ {product.price}</strong>
             </Typography>
           </Box>
           <Box display={"flex"}>
             <SdStorageOutlinedIcon fontSize="large" />
             <Typography paddingLeft={1} variant="h6" color="initial">
-              Almacenamiento: 128 GB
+              Almacenamiento: {product.internalStorage} GB
             </Typography>
           </Box>
           <Box display={"flex"}>
@@ -112,12 +116,7 @@ const ProductPage = () => {
             paddingLeft={25}
             paddingRight={25}
           >
-            <strong>Sobre este producto:</strong> Te presentamos el Samsung
-            Galaxy A33 con un procesador Octa-Core (2,4GHz, 2GHz) para que estés
-            al día con todas las aplicaciones y juegos de última generación.
-            Descubrí todas las posibilidades para tus fotos, tanto de día como
-            de noche, con la cámara de 48+8+5+2 MP. Memoria interna de 128 GB y
-            expandible con una MicroSd hasta 1TB.
+            <strong>Sobre este producto:</strong> {product.description}
           </Typography>
         </Grid>
 
@@ -149,30 +148,30 @@ const ProductPage = () => {
                 <Box padding={2}>
                   <DeveloperBoardOutlinedIcon fontSize="large" />
                   <Typography>
-                    <strong>PROCESADOR</strong>
+                    <strong>PROCESADORES</strong>
                   </Typography>
-                  <Typography>Octa-Core (2,4GHz, 2GHz)</Typography>
+                  <Typography>Cantidad: {product.processor}</Typography>
                 </Box>
                 <Box padding={2}>
                   <SdStorageOutlinedIcon fontSize="large" />
                   <Typography>
                     <strong>ALMACENAMIENTO</strong>
                   </Typography>
-                  <Typography>128 GB</Typography>
+                  <Typography>{product.internalStorage} GB</Typography>
                 </Box>
                 <Box padding={2}>
                   <CameraAltOutlinedIcon fontSize="large" />
                   <Typography>
                     <strong>CÁMARAS</strong>
                   </Typography>
-                  <Typography>Frontal 13 MP / Trasera 48+8+5+2 MP</Typography>
+                  <Typography>Frontal {product.frontCamera} MP / Trasera {product.rearCamera} MP</Typography>
                 </Box>
                 <Box padding={2}>
                   <AspectRatioOutlinedIcon fontSize="large" />
                   <Typography>
                     <strong>TAMAÑO DE PANTALLA</strong>
                   </Typography>
-                  <Typography>6.4" + FHD+ - SuperAmoled</Typography>
+                  <Typography>{product.screenSize}</Typography>
                 </Box>
               </Box>
             </TabPanel>
@@ -188,16 +187,16 @@ const ProductPage = () => {
                     <strong>ESPECIFICACIONES TÉCNICAS</strong>
                   </Typography>
                   <Typography>
-                    <strong>Sistema operativo:</strong> Android 11
+                    <strong>Sistema operativo:</strong> {product.operatingSystem}
                   </Typography>
                   <Typography>
-                    <strong>Procesador:</strong> Octa-Core (1.6GHz, 1.8GHz)
+                    <strong>Procesadores:</strong> Cantidad: {product.processor}
                   </Typography>
                   <Typography>
-                    <strong>RAM:</strong> 4 GB
+                    <strong>RAM:</strong> {product.ram} GB
                   </Typography>
                   <Typography>
-                    <strong>Memoria:</strong> 128 GB
+                    <strong>Memoria:</strong> {product.internalStorage} GB
                   </Typography>
                 </Box>
                 <Box padding={2}>
@@ -205,14 +204,14 @@ const ProductPage = () => {
                   <Typography>
                     <strong>BATERÍA</strong>
                   </Typography>
-                  <Typography>Capacidad: 5000 mAh</Typography>
+                  <Typography>Capacidad: {product.batteryCapacity} mAh</Typography>
                 </Box>
                 <Box padding={2}>
                   <SimCardOutlinedIcon fontSize="large" />
                   <Typography>
                     <strong>TARJETA SIM</strong>
                   </Typography>
-                  <Typography>Cantidad: 2</Typography>
+                  <Typography>Cantidad: {product.numberOfSims}</Typography>
                 </Box>
               </Box>
             </TabPanel>
@@ -242,7 +241,7 @@ const ProductPage = () => {
           </TabContext>
         </Box>
       </Grid>
-      <Comments />
+      <Comments product={product} />
     </>
   );
 };

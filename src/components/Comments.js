@@ -10,19 +10,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 
-const Comments = () => {
+const Comments = ( { product } ) => {
   const [rating, setRating] = useState();
-  const [commit, setCommit] = useState();
-  const [comments,setComments] = useState([])
+  const [commit, setCommit] = useState(); //comentario posteado
+  const [comments,setComments] = useState([]) // comentarios recibidos
 
   useEffect(() => {
     axios
-      .get(`/api/comment/:id`)
+      .get(`/api/comment/${product.id}`)
       .then((res) => setComments(res.data))
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [product.id]);
 
   const handleComment = (e) => {
     setCommit(e.target.value);
@@ -36,8 +36,8 @@ const Comments = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/api/comment/:id", { rating, commit })
-      .then((userRating) => console.log(userRating))
+      .post(`/api/comment/${product.id}`, { rating, commit })
+      .then((userRating) => setCommit(userRating.data))
       .catch((err) => console.log(err));
   };
 
@@ -66,11 +66,11 @@ const Comments = () => {
   let suma = 0;
   let promedio = 0;
 
-    for (let i = 0; i < comentarios.length; i++) {
-      suma += comentarios[i].rating;
+    for (let i = 0; i < comments.length; i++) {
+      suma += comments[i].rating;
     }
   
-  promedio = (suma / comentarios.length).toFixed(2);
+  promedio = (suma / comments.length).toFixed(2);
 
   return (
     <>
@@ -132,7 +132,7 @@ const Comments = () => {
               OPINIONES DEL PRODUCTO
             </Typography>
             <Box display={'flex'} flexDirection={'column'} justifyContent='center' alignItems={'center'}>
-              <Typography variant="h4">{promedio}</Typography>
+              <Typography variant="h4">{promedio ? (promedio): ("")}</Typography>
               
               <Rating
                 readOnly
@@ -140,7 +140,7 @@ const Comments = () => {
                 value={promedio}
                 sx={{ mb: "10px" }}
               />
-              <Typography variant="h8">({comentarios.length} valoraciones)</Typography>
+              <Typography variant="h8">({comments.length} valoraciones)</Typography>
             </Box>
           </Box>
         </Grid>
@@ -162,7 +162,7 @@ const Comments = () => {
               justifyContent={"center"}
               alignItems={"center"}
             >
-              {comentarios.map((comment, index) => (
+              {comments.map((comment, index) => (
                 <>
                   <Rating
                     readOnly
