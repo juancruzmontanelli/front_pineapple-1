@@ -16,7 +16,7 @@ const Footer = () => {
     gap: 10,
   });
   return (
-    <footer style={{ width: "100%" }}>
+    <footer style={{bottom: 0, width:'100%'}}>
       <Box
         px={{ xs: 2, sm: 4 }}
         py={{ xs: 2, sm: 4 }}
@@ -26,11 +26,7 @@ const Footer = () => {
         <Container>
           <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>
-              <Box borderBottom={1} color="orange">
-                <Typography variant="h7" color="orange">
-                  CONFIANZA EN TUS COMPRAS
-                </Typography>
-              </Box>
+              <Box borderBottom={1} color='#ed7203'><Typography variant="h7" color="#ed7203">CONFIANZA EN TUS COMPRAS</Typography></Box>
               <Box>
                 <Link
                   href="https://www.argentina.gob.ar/servicio/iniciar-un-reclamo-ante-la-direccion-nacional-de-defensa-del-consumidor-y-arbitraje-del"
@@ -57,27 +53,26 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Box borderBottom={1} color="orange">
-                <Typography variant="h7" color="orange">
-                  SEGUINOS
-                </Typography>
-              </Box>
+              <Box borderBottom={1} color='#ed7203'><Typography variant="h7" color="#ed7203">SEGUINOS</Typography></Box>
               <SocialBox>
-                <Link href="" target="_blank">
-                  <IconButton sx={{ color: "orange" }} href>
-                    <Facebook />
-                  </IconButton>
-                </Link>
-                <Link href="" target="_blank">
-                  <IconButton sx={{ color: "orange" }} href>
-                    <Twitter />
-                  </IconButton>
-                </Link>
-                <Link href="" target="_blank">
-                  <IconButton sx={{ color: "orange" }} href>
-                    <Instagram />
-                  </IconButton>
-                </Link>
+                <Link href=""
+                  target="_blank">
+               <IconButton sx={{color:'#ed7203'}} href>
+               <Facebook />
+               </IconButton>
+               </Link>
+               <Link href=""
+                  target="_blank">
+               <IconButton sx={{color:'#ed7203'}} href>
+               <Twitter />
+               </IconButton>
+               </Link>
+               <Link href=""
+                  target="_blank">
+               <IconButton sx={{color:'#ed7203'}} href>
+               <Instagram />
+               </IconButton>
+               </Link>
               </SocialBox>
             </Grid>
           </Grid>
