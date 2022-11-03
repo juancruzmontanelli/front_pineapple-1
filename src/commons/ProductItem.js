@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const ProductItem = ( { data } ) => {
   return (
-    <Grid xs={3} item component={Link} to={`/product/${data.id}`} style={{ textDecoration: "none" }}>
+    <Grid xs={3} item component={Link} to={`/product/${data.url}`} style={{ textDecoration: "none" }}>
       <Grid>
         <img
           style={{ width: "100%" }}
