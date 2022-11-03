@@ -49,6 +49,7 @@ const CreateUser = () => {
   };
   const handleEmail = (e) => {
     let emailInput = e.target.value;
+    setEmail(emailInput)
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
@@ -63,6 +64,7 @@ const CreateUser = () => {
   };
 
   return (
+    
     <form onSubmit={handleSubmit}>
       <Grid
         container
@@ -88,7 +90,7 @@ const CreateUser = () => {
         </Grid>
         <Grid item md={12}>
           <FormControl>
-            <InputLabel htmlFor="address">Dirección de correo</InputLabel>
+            <InputLabel htmlFor="address">Domicilio</InputLabel>
             <Input
               required
               id="address"
@@ -97,7 +99,7 @@ const CreateUser = () => {
               onChange={handleAddress}
             />
             <FormHelperText id="address-helper">
-              Dirección de correo
+              Domicilio
             </FormHelperText>
           </FormControl>
         </Grid>

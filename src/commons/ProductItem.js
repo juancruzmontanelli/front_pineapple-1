@@ -4,21 +4,20 @@ import { Box } from "@mui/system";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
 
-
 const ProductItem = ( { data } ) => {
   return (
-    <Grid xs={3} item component={Link} to={`/product/${data.id}`}>
-      <ItemLink href="/">
+    <Grid xs={3} item component={Link} to={`/product/${data.url}`} style={{ textDecoration: "none" }}>
+      <Grid>
         <img
           style={{ width: "100%" }}
           alt=""
           src={data.img}
         />
-      </ItemLink>
+      </Grid>
       <ItemDescription>
-        <ItemLink href="/">
+        <Grid>
           <ItemTitle>{data.name}</ItemTitle>
-        </ItemLink>
+        </Grid>
         <Rating
           name="read-only"
           value={4}
@@ -26,7 +25,7 @@ const ProductItem = ( { data } ) => {
           sx={{ mt: "4px" }}
           readOnly
         />
-        <ItemPrice>${data.price}</ItemPrice>
+        <ItemPrice>US$ {data.price}</ItemPrice>
         <Button variant="text" size="small">
           Ver más detalles
         </Button>
@@ -35,9 +34,6 @@ const ProductItem = ( { data } ) => {
   );
 };
 
-const ItemLink = styled("a")({
-  textDecoration: "none",
-});
 
 const ItemTitle = styled(Typography)({
   fontSize: "16px",
