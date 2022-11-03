@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Box, styled, TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import { setSearch } from "../state/search";
 import axios from "axios";
 
 const SearchBox = styled(Box)({
@@ -12,6 +14,8 @@ const SearchBox = styled(Box)({
 const SearchBar = () => {
   const [searchedValue, setSearchedValue] = useState("");
   const [foundedData, setFoundedData] = useState([]);
+  const dispatch = useDispatch();
+
 
   const handleSearch = (e) => {
     setSearchedValue(e.target.value);
@@ -27,6 +31,8 @@ const SearchBar = () => {
         console.log(err);
       });
   };
+
+  dispatch(setSearch(foundedData));
 
   return (
     <>
