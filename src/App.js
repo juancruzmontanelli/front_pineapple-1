@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router";
 import { Container } from "@mui/material";
 import Navbar from "./components/Navbar";
@@ -9,11 +9,28 @@ import Login from "./containers/Login";
 import CreateUser from "./containers/CreateUser";
 import CreatesSuccess from "./containers/CreateSuccess";
 import Cart from "./containers/Cart";
+import { useDispatch } from "react-redux";
+import { setUser } from "./state/user"
+import axios from 'axios'
+
+
 
 
 
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    axios
+      .get("/api/user/me")
+      .then((user) => dispatch(setUser(user.data)))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Navbar />
