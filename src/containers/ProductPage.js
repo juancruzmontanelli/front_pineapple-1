@@ -14,6 +14,16 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
 const ProductPage = () => {
   const [value, setValue] = React.useState("1");
+  const [product,setProduct] = useState({})
+
+  useEffect(() => {
+    axios
+      .get(`/api/products/id`)
+      .then((res) => setProduct(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,7 +46,6 @@ const ProductPage = () => {
           flexDirection="column"
           justifyContent="space-evenly"
         >
-          {" "}
           <Box>
             <Typography variant="h3" color="initial">
               Samsung Galaxy A33 5G

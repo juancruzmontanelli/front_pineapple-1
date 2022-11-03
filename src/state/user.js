@@ -6,6 +6,7 @@ export const removeProducts = createAction("REMOVE_PRODUCTS");
 
 
 const initialState = {
+  id: null,
   name: null,
   email: null,
   loggedIn: false,
@@ -14,10 +15,10 @@ const initialState = {
 
 export default createReducer(initialState, {
   [setUser]: (state, action) => {
-    return { ...state, name: action.payload, email: action.payload, loggedIn: true};
+    return { ...state, name: action.payload, email: action.payload, id:null, loggedIn: true};
   },
   [logOut]: (state, action) => {
-    return { ...state, name: null, email: null, loggedIn: false, products: [] };
+    return { ...state, name: null, email: null, id: null, loggedIn: false, products: [] };
   },
 
   [addProducts]: (state, action) => {

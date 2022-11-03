@@ -6,12 +6,23 @@ import {
   Button,
   Rating,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 
 const Comments = () => {
   const [rating, setRating] = useState();
   const [commit, setCommit] = useState();
+  const [comments,setComments] = useState([])
+
+  useEffect(() => {
+    axios
+      .get(`/api/comment/:id`)
+      .then((res) => setComments(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleComment = (e) => {
     setCommit(e.target.value);
@@ -25,7 +36,7 @@ const Comments = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("", { rating, commit })
+      .post("/api/comment/:id", { rating, commit })
       .then((userRating) => console.log(userRating))
       .catch((err) => console.log(err));
   };
@@ -79,7 +90,7 @@ const Comments = () => {
             <Typography component="legend">¿Cómo lo valorarías?</Typography>
             <Rating
               name="simple-controlled"
-              value={null}
+              value={rating}
               onChange={handleRating}
               sx={{ mb: "10px" }}
             />
