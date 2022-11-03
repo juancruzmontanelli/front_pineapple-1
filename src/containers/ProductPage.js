@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Comments from "../components/Comments";
-import axios from 'axios'
+import axios from "axios";
 import { Grid, Typography, Button, Box, Tab } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
@@ -13,12 +13,15 @@ import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../state/cart";
 
 const ProductPage = () => {
   const [value, setValue] = React.useState("1");
-  const [product,setProduct] = useState({})
+  const [product, setProduct] = useState({});
 
-  const { id } = useParams()
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -31,6 +34,19 @@ const ProductPage = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleBuyNow = () => {};
+
+  const handleAddToCart = () => {
+    dispatch(
+      addProduct({
+        id,
+        title: product.name,
+        img: product.img,
+        price: product.price,
+      })
+    );
   };
 
   return (
@@ -84,6 +100,7 @@ const ProductPage = () => {
               }}
               width="50%"
               variant="contained"
+              onClick={handleBuyNow}
             >
               Comprar ahora
             </Button>
@@ -99,6 +116,7 @@ const ProductPage = () => {
               }}
               endIcon={<LocalGroceryStoreIcon />}
               variant="contained"
+              onClick={handleAddToCart}
             >
               Agregar al carrito
             </Button>
@@ -164,7 +182,10 @@ const ProductPage = () => {
                   <Typography>
                     <strong>CÁMARAS</strong>
                   </Typography>
-                  <Typography>Frontal {product.frontCamera} MP / Trasera {product.rearCamera} MP</Typography>
+                  <Typography>
+                    Frontal {product.frontCamera} MP / Trasera{" "}
+                    {product.rearCamera} MP
+                  </Typography>
                 </Box>
                 <Box padding={2}>
                   <AspectRatioOutlinedIcon fontSize="large" />
@@ -187,7 +208,8 @@ const ProductPage = () => {
                     <strong>ESPECIFICACIONES TÉCNICAS</strong>
                   </Typography>
                   <Typography>
-                    <strong>Sistema operativo:</strong> {product.operatingSystem}
+                    <strong>Sistema operativo:</strong>{" "}
+                    {product.operatingSystem}
                   </Typography>
                   <Typography>
                     <strong>Procesadores:</strong> Cantidad: {product.processor}
@@ -204,7 +226,9 @@ const ProductPage = () => {
                   <Typography>
                     <strong>BATERÍA</strong>
                   </Typography>
-                  <Typography>Capacidad: {product.batteryCapacity} mAh</Typography>
+                  <Typography>
+                    Capacidad: {product.batteryCapacity} mAh
+                  </Typography>
                 </Box>
                 <Box padding={2}>
                   <SimCardOutlinedIcon fontSize="large" />

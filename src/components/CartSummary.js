@@ -11,8 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import { totalPriceFormatter } from "../utils/formatter";
 
 const CartSummary = () => {
+  const cart = useSelector((state) => state.cart);
+  const subtotal = totalPriceFormatter(
+    cart.reduce((acc, { quantity, price }) => acc + quantity * price, 0)
+  );
+  const total = subtotal;
   return (
     <Grid xs={4} item>
       <Card sx={{ p: "10px", backgroundColor: "#fafafa" }}>
@@ -25,7 +32,7 @@ const CartSummary = () => {
             <ListItem
               disablePadding={true}
               disableGutters={true}
-              secondaryAction={<Typography>$120.870</Typography>}
+              secondaryAction={<Typography>${subtotal}</Typography>}
             >
               <ListItemText>Subtotal </ListItemText>
             </ListItem>
@@ -43,14 +50,14 @@ const CartSummary = () => {
               disableGutters={true}
               secondaryAction={
                 <Typography variant="h6" component="span">
-                  $120.870
+                  ${total}
                 </Typography>
               }
             >
               <ListItemText>
                 <Typography variant="h6" component="span">
                   Total
-                </Typography>{" "}
+                </Typography>
               </ListItemText>
             </ListItem>
           </List>

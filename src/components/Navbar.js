@@ -16,11 +16,11 @@ import {
   Badge,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-
-
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  
+  const totalItemsCart = useSelector((state) => state.cart.length);
+
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const StyledToolBar = styled(Toolbar)({
@@ -64,11 +64,11 @@ const Navbar = () => {
                   <StyledButton>Iniciar sesión</StyledButton>
                 </Link>
                 <Link to={"/register"}>
-                <StyledButton>Registro</StyledButton>
+                  <StyledButton>Registro</StyledButton>
                 </Link>
                 <Link to="/cart">
                   <IconButton sx={{ color: "#ed7203" }} aria-label="cart">
-                    <Badge badgeContent={4} color="secondary">
+                    <Badge badgeContent={totalItemsCart} color="secondary">
                       <LocalGroceryStoreIcon />
                     </Badge>
                   </IconButton>
