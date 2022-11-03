@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, styled, TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
 
 const SearchBox = styled(Box)({
   display: "flex",
@@ -10,14 +11,26 @@ const SearchBox = styled(Box)({
 
 const SearchBar = () => {
   const [searchedValue, setSearchedValue] = useState("");
+  const [foundedData, setFoundedData] = useState([]);
 
   const handleSearch = (e) => {
     setSearchedValue(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .get("")
+      .then((res) => setFoundedData(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <SearchBox>
           <TextField
             id="full-width-text-field"
@@ -33,13 +46,12 @@ const SearchBar = () => {
             }}
             InputProps={{
               startAdornment: (
-                <IconButton sx={{color:'orange'}} type="submit">
+                <IconButton sx={{ color: "#ed7203" }} type="submit">
                   <SearchIcon />
                 </IconButton>
               ),
             }}
-          >
-          </TextField>
+          ></TextField>
         </SearchBox>
       </form>
     </>
