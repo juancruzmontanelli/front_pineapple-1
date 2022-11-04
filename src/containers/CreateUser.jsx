@@ -6,8 +6,8 @@ import {
   Grid,
   Input,
   InputLabel,
+  Typography
 } from "@mui/material";
-import { Container } from "@mui/system";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
@@ -49,7 +49,7 @@ const CreateUser = () => {
   };
   const handleEmail = (e) => {
     let emailInput = e.target.value;
-    setEmail(emailInput)
+    setEmail(emailInput);
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
@@ -64,94 +64,107 @@ const CreateUser = () => {
   };
 
   return (
-    
-    <form onSubmit={handleSubmit}>
-      <Grid
-        container
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        rowSpacing={3}
-      >
-        <h1>Crear cuenta</h1>
-        <Grid item md={12}>
-          <FormControl>
-            <InputLabel htmlFor="name">Nombre</InputLabel>
-            <Input
-              required
-              id="name"
-              type="text"
-              aria-describedby="name-helper"
-              onChange={handleName}
-            />
-            <FormHelperText id="name-helper">Nombre y apellido</FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={12}>
-          <FormControl>
-            <InputLabel htmlFor="address">Domicilio</InputLabel>
-            <Input
-              required
-              id="address"
-              type="text"
-              aria-describedby="address-helper"
-              onChange={handleAddress}
-            />
-            <FormHelperText id="address-helper">
-              Domicilio
-            </FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={12}>
-          <FormControl>
-            <InputLabel htmlFor="name"> Correo electrónico</InputLabel>
-            <Input
-              required
-              id="email"
-              type="email"
-              aria-describedby="email-helper"
-              onChange={handleEmail}
-            />
-            {isValidEmail ? (
-              <FormHelperText> Correo electrónico</FormHelperText>
-            ) : (
-              <FormHelperText error>
-                Dirección de correo incorrecta
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-        <Grid item md={12}>
-          <FormControl>
-            <InputLabel htmlFor="password">Contraseña</InputLabel>
-            <Input
-              required
-              id="pass"
-              type="password"
-              aria-describedby="password-helper"
-              onChange={handlePass}
-            />
-            {isValidPass ? (
-              <FormHelperText>Ingrese su contraseña </FormHelperText>
-            ) : (
-              <FormHelperText error>
-                Debe tener al menos 6 caracteres,
-                <br /> una mayúscula, una minúscula,
-                <br />
-                un número y un caracter especial
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
-
-        <Grid item md={12}>
-          <Button variant="contained" color="success" type="submit">
-            Continuar
-          </Button>
-        </Grid>
+    <Grid
+      container
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      rowSpacing={3}
+    >
+      <Grid item md={12}>
+        <Typography sx={{ pb: 2, pt: 5 }} variant="h4">
+          Crear cuenta
+        </Typography>
+        <FormControl>
+          <InputLabel htmlFor="name">Nombre</InputLabel>
+          <Input
+            required
+            id="name"
+            type="text"
+            aria-describedby="name-helper"
+            onChange={handleName}
+          />
+          <FormHelperText id="name-helper">Elegí cómo querés que te llamemos.</FormHelperText>
+        </FormControl>
       </Grid>
-    </form>
+      <Grid item md={12}>
+        <FormControl>
+          <InputLabel htmlFor="address">Domicilio</InputLabel>
+          <Input
+            required
+            id="address"
+            type="text"
+            aria-describedby="address-helper"
+            onChange={handleAddress}
+          />
+          <FormHelperText id="address-helper">Configurá el envío de tus compras</FormHelperText>
+        </FormControl>
+      </Grid>
+      <Grid item md={12}>
+        <FormControl>
+          <InputLabel htmlFor="name">Email</InputLabel>
+          <Input
+            required
+            id="email"
+            type="email"
+            aria-describedby="email-helper"
+            onChange={handleEmail}
+          />
+          {isValidEmail ? (
+            <FormHelperText>Recibirás información de tu cuenta.</FormHelperText>
+          ) : (
+            <FormHelperText error>
+              Dirección de correo incorrecta
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+      <Grid item md={12}>
+        <FormControl>
+          <InputLabel htmlFor="password">Contraseña</InputLabel>
+          <Input
+            required
+            id="pass"
+            type="password"
+            aria-describedby="password-helper"
+            onChange={handlePass}
+          />
+          {isValidPass ? (
+            <FormHelperText>Servirá para ingresar a tu cuenta.</FormHelperText>
+          ) : (
+            <FormHelperText error>
+              Debe tener al menos 6 caracteres,
+              <br /> una mayúscula, una minúscula,
+              <br />
+              un número y un caracter especial
+            </FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+
+      <Grid item md={12}>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{
+            bgcolor: "#ed7203",
+            mb: 10,
+            mt: 3,
+            color: "black",
+            width: "100%",
+            "&:hover": {
+              backgroundColor: "#cf6a0e",
+              color: "black",
+            },
+          }}
+        >
+          Continuar
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
