@@ -8,12 +8,13 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-
-const Comments = ( { product } ) => {
+const Comments = ({ product }) => {
   const [rating, setRating] = useState();
   const [commit, setCommit] = useState(); //comentario posteado
-  const [comments,setComments] = useState([]) // comentarios recibidos
+  const [comments, setComments] = useState({ comments: [] }); // comentarios recibidos
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios
@@ -31,7 +32,7 @@ const Comments = ( { product } ) => {
   const handleRating = (e) => {
     setRating(e.target.value);
   };
-console.log(product.id)
+  
   //falta sumar el userId y el productId al post
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,128 +42,152 @@ console.log(product.id)
       .catch((err) => console.log(err));
   };
 
-  let suma = 0;
-  let promedio = 0;
-
-    for (let i = 0; i < comments.length; i++) {
-      suma += comments[i].rating;
-    }
-  
-  promedio = (suma / comments.length).toFixed(2);
 
   return (
     <>
       <Grid container display={"flex"}>
-        <Grid item xs={12}>
-          <Box
-            component="form"
-            sx={{ width: "100%" }}
-            noValidate
-            autoComplete="off"
-            display={"flex"}
-            flexDirection="column"
-            justifyContent={"center"}
-            alignItems={"center"}
-            paddingBottom={7}
-          >
-            <Typography component="legend">¿Cómo lo valorarías?</Typography>
-            <Rating
-              name="simple-controlled"
-              value={rating}
-              onChange={handleRating}
-              sx={{ mb: "10px" }}
-            />
-
-            <TextField
-              id="outlined-multiline-static"
-              placeholder="Dejanos tu comentario"
-              multiline
-              rows={6}
-              sx={{
-                fieldset: { borderColor: "#ed7203" },
-                width: "50%",
-              }}
-              onChange={handleComment}
-            />
-            <Button
-              type="submit"
-              sx={{
-                width: "10%",
-                marginTop: "10px",
-                bgcolor: "#ed7203",
-                color: "black",
-                mb: 2,
-                "&:hover": {
-                  backgroundColor: "#cf6a0e",
-                  color: "black",
-                },
-              }}
-              variant="contained"
-              onClick={handleSubmit}
-            >
-              Enviar
-            </Button>
-          </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Box display={'flex'} flexDirection={'column'} justifyContent='center' alignItems={'center'}>
-            <Typography marginBottom={1} marginRight={5} variant="h6">
-              OPINIONES DEL PRODUCTO
-            </Typography>
-            <Box display={'flex'} flexDirection={'column'} justifyContent='center' alignItems={'center'}>
-              <Typography variant="h4">{promedio ? (promedio): ("")}</Typography>
-              
-              <Rating
-                readOnly
-                name="simple-controlled"
-                value={promedio}
-                sx={{ mb: "10px" }}
-              />
-              <Typography variant="h8">({comments.length} valoraciones)</Typography>
-            </Box>
-          </Box>
-        </Grid>
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          width="100%"
-          marginTop={5}
-        >
-          <Box>
-            <Grid
-              marginBottom={10}
-              marginLeft={3}
-              item
-              xs={12}
-              display="flex"
-              flexDirection={"column"}
+        {user.loggedIn && (
+          <Grid item xs={12}>
+            <Box
+              component="form"
+              sx={{ width: "100%" }}
+              noValidate
+              autoComplete="off"
+              display={"flex"}
+              flexDirection="column"
               justifyContent={"center"}
               alignItems={"center"}
+              paddingBottom={7}
             >
-              {comments.map((comment, index) => (
-                <>
+              <Typography component="legend">¿Cómo lo valorarías?</Typography>
+              <Rating
+                name="simple-controlled"
+                value={rating}
+                onChange={handleRating}
+                sx={{ mb: "10px" }}
+              />
+
+              <TextField
+                id="outlined-multiline-static"
+                placeholder="Dejanos tu comentario"
+                multiline
+                rows={6}
+                sx={{
+                  fieldset: { borderColor: "#ed7203" },
+                  width: "50%",
+                }}
+                onChange={handleComment}
+              />
+              <Button
+                type="submit"
+                sx={{
+                  width: "10%",
+                  marginTop: "10px",
+                  bgcolor: "#ed7203",
+                  color: "black",
+                  mb: 2,
+                  "&:hover": {
+                    backgroundColor: "#cf6a0e",
+                    color: "black",
+                  },
+                }}
+                variant="contained"
+                onClick={handleSubmit}
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Grid>
+        )}
+        {comments.promedio > 0 ? (
+          <>
+            <Grid item xs={12}>
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent="center"
+                alignItems={"center"}
+              >
+                <Typography marginBottom={1} marginRight={5} variant="h6">
+                  OPINIONES DEL PRODUCTO
+                </Typography>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent="center"
+                  alignItems={"center"}
+                >
+                  <Typography variant="h4">
+                    {Number(comments.promedio) > 0 ? Number(comments.promedio) : ""}
+                  </Typography>
+
                   <Rating
                     readOnly
                     name="simple-controlled"
-                    value={comment.rating}
+                    value={Number(comments.promedio)}
                     sx={{ mb: "10px" }}
                   />
-                  <Typography key={index}>
-                    <strong>{comment.name}</strong>
+                  <Typography variant="subtitle1">
+                    ({comments.comments.length} valoraciones)
                   </Typography>
-                  <Typography
-                    align={"justify"}
-                    justifyContent="center"
-                    key={index}
-                  >
-                    {comment.commit}
-                  </Typography>
-                </>
-              ))}
+                </Box>
+              </Box>
             </Grid>
-          </Box>
-        </Box>
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              width="100%"
+              marginTop={5}
+            >
+              <Box>
+                <Grid
+                  marginBottom={10}
+                  marginLeft={3}
+                  item
+                  xs={12}
+                  display="flex"
+                  flexDirection={"column"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  {comments.comments.map((comment) => (
+                    <Box key={comment.id}>
+                      <Rating
+                        readOnly
+                        name="simple-controlled"
+                        value={comment.rating}
+                        sx={{ mb: "10px" }}
+                      />
+                      <Typography key={comment.id}>
+                        <strong>{comment.name}</strong>
+                      </Typography>
+                      <Typography
+                        align={"justify"}
+                        justifyContent="center"
+                      >
+                        {comment.commit}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Grid>
+              </Box>
+            </Box>
+          </>
+        ) : (
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent={"center"}
+            alignItems={"center"}
+            marginBottom="50px"
+          >
+            <Typography variant="h5">
+              Este producto aún no tiene valoraciones
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </>
   );

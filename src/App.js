@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router";
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProductPage from "./containers/ProductPage";
@@ -12,7 +12,6 @@ import Cart from "./containers/Cart";
 import { useDispatch } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
-import { loadState } from "./utils/browserStorage";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,8 +20,6 @@ function App() {
     axios
       .get("/api/user/me")
       .then((user) => {
-        const localCart = loadState().cart;
-        const remoteCart = user.data.cart;
         dispatch(setUser(user.data));
       })
       .catch((err) => {
@@ -31,9 +28,9 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Box display='flex' flexDirection= 'column'>
       <Navbar />
-      <Container>
+      <Container flex={1} sx={{minHeight: 'calc(100vh - 301px)'}}>
         <Routes>
           {/* Rutas publicas */}
           <Route path="/" element={<Home />} />
@@ -67,7 +64,7 @@ function App() {
         </Routes>
       </Container>
       <Footer />
-    </>
+    </Box>
   );
 }
 
