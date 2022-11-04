@@ -12,7 +12,7 @@ import BatteryChargingFullOutlinedIcon from "@mui/icons-material/BatteryCharging
 import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../state/cart";
 
@@ -21,6 +21,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState({});
 
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +37,10 @@ const ProductPage = () => {
     setValue(newValue);
   };
 
-  const handleBuyNow = () => {};
+  const handleBuyNow = () => {
+    handleAddToCart();
+    navigate("/cart");
+  };
 
   const handleAddToCart = () => {
     dispatch(

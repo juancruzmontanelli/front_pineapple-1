@@ -11,13 +11,10 @@ import { Container } from "@mui/system";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../state/user"
-
-
+import { setUser } from "../state/user";
 
 const Login = () => {
-  
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
   const [isValidPass, setIsValidPass] = useState(true);

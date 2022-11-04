@@ -8,7 +8,7 @@ const CartList = () => {
   return (
     <Grid xs={8} item>
       {products.map((product) => (
-        <CartListItem data={product} />
+        <CartListItem data={product} key={product.id} />
       ))}
     </Grid>
   );
