@@ -35,7 +35,7 @@ const CreateUser = () => {
           navigate("/createSuccess");
         })
         .catch((error) => {
-          console.log(error);
+          alert('Revise los datos ingresados');
         })
     ) : (
       <FormHelperText error>Datos incorrectos</FormHelperText>

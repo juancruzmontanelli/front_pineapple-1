@@ -7,6 +7,7 @@ import {
   Grid,
   Typography,
   IconButton,
+  Paper
 } from "@mui/material";
 import { Facebook, Twitter, Instagram } from "@mui/icons-material/";
 
@@ -16,7 +17,7 @@ const Footer = () => {
     gap: 10,
   });
   return (
-    <footer style={{bottom: 0, width:'100%'}}>
+    <Paper sx={{width:'100%'}}>
       <Box
         px={{ xs: 2, sm: 4 }}
         py={{ xs: 2, sm: 4 }}
@@ -26,7 +27,7 @@ const Footer = () => {
         <Container>
           <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>
-              <Box borderBottom={1} color='#ed7203'><Typography variant="h7" color="#ed7203">CONFIANZA EN TUS COMPRAS</Typography></Box>
+              <Box borderBottom={1} color='#ed7203'><Typography variant="subtitle2" color="#ed7203">CONFIANZA EN TUS COMPRAS</Typography></Box>
               <Box>
                 <Link
                   href="https://www.argentina.gob.ar/servicio/iniciar-un-reclamo-ante-la-direccion-nacional-de-defensa-del-consumidor-y-arbitraje-del"
@@ -34,7 +35,7 @@ const Footer = () => {
                   color="inherit"
                   underline="none"
                 >
-                  <Typography variant="h7" color="white">
+                  <Typography variant="subtitle1" color="white">
                     Defensa de las y los Consumidores. Para reclamos ingresá acá
                   </Typography>
                 </Link>
@@ -46,30 +47,30 @@ const Footer = () => {
                   color="inherit"
                   underline="none"
                 >
-                  <Typography variant="h7" color="white">
+                  <Typography variant="subtitle1" color="white">
                     Reglamento de cliente servicios TIC
                   </Typography>
                 </Link>
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Box borderBottom={1} color='#ed7203'><Typography variant="h7" color="#ed7203">SEGUINOS</Typography></Box>
+              <Box borderBottom={1} color='#ed7203'><Typography variant="subtitle2" color="#ed7203">SEGUINOS</Typography></Box>
               <SocialBox>
-                <Link href=""
+                <Link href="/"
                   target="_blank">
-               <IconButton sx={{color:'#ed7203'}} href>
+               <IconButton sx={{color:'#ed7203'}}>
                <Facebook />
                </IconButton>
                </Link>
-               <Link href=""
+               <Link href="/"
                   target="_blank">
-               <IconButton sx={{color:'#ed7203'}} href>
+               <IconButton sx={{color:'#ed7203'}}>
                <Twitter />
                </IconButton>
                </Link>
-               <Link href=""
+               <Link href="/"
                   target="_blank">
-               <IconButton sx={{color:'#ed7203'}} href>
+               <IconButton sx={{color:'#ed7203'}}>
                <Instagram />
                </IconButton>
                </Link>
@@ -77,11 +78,11 @@ const Footer = () => {
             </Grid>
           </Grid>
           <Box textAlign="center" pt={{ xs: 3, sm: 7 }} pb={{ xs: 5, sm: 0 }}>
-            Copyright {new Date().getFullYear()}
+            <Typography variant='subtitle1'>Copyright {new Date().getFullYear()}</Typography>
           </Box>
         </Container>
       </Box>
-    </footer>
+    </Paper>
   );
 };
 

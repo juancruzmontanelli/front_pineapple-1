@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
+import axios from 'axios'
+
+
 
 const ProductItem = ( { data } ) => {
+
+  const [rating, setRating] = useState(null)
+
+  useEffect(() => {
+    axios
+      .get(`/api/comment/${data.url}`)
+      .then((res) => setRating(res.data.promedio))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data.url]);
+
   return (
     <Grid xs={3} item component={Link} to={`/product/${data.url}`} style={{ textDecoration: "none" }}>
       <Grid>
@@ -20,7 +35,7 @@ const ProductItem = ( { data } ) => {
         </Grid>
         <Rating
           name="read-only"
-          value={4}
+          value={Number(rating)}
           size="small"
           sx={{ mt: "4px" }}
           readOnly

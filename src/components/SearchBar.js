@@ -32,7 +32,7 @@ const SearchBar = () => {
       });
   };
 
-  dispatch(setSearch(foundedData));
+  
 
   return (
     <>
@@ -42,7 +42,7 @@ const SearchBar = () => {
             id="full-width-text-field"
             value={searchedValue}
             onChange={handleSearch}
-            placeholder="Buscá tu próximo celular..."
+            placeholder="Buscá tu celular..."
             size="small"
             variant="outlined"
             sx={{

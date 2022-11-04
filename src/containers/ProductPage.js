@@ -18,7 +18,8 @@ import { addProduct } from "../state/cart";
 
 const ProductPage = () => {
   const [value, setValue] = React.useState("1");
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
+  
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ const ProductPage = () => {
 
   return (
     <>
+    {product &&
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <img
@@ -219,7 +221,7 @@ const ProductPage = () => {
                     <strong>Procesadores:</strong> Cantidad: {product.processor}
                   </Typography>
                   <Typography>
-                    <strong>RAM:</strong> {product.ram} GB
+                    <strong>RAM:</strong> {product.ram} MB
                   </Typography>
                   <Typography>
                     <strong>Memoria:</strong> {product.internalStorage} GB
@@ -268,8 +270,8 @@ const ProductPage = () => {
             </TabPanel>
           </TabContext>
         </Box>
-      </Grid>
-      <Comments product={product} />
+      </Grid>}
+      {product && <Comments product={product} />}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem, Box } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -17,7 +17,7 @@ const MenuBrands = () => {
   };
 
   return (
-    <div>
+    <Box display='flex' alignItems='center'>
       <IconButton
         sx={{ color: "#ed7203" }}
         aria-label="more"
@@ -52,7 +52,7 @@ const MenuBrands = () => {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </Box>
   );
 };
 
