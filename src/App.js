@@ -10,22 +10,21 @@ import CreateUser from "./containers/CreateUser";
 import CreatesSuccess from "./containers/CreateSuccess";
 import Cart from "./containers/Cart";
 import { useDispatch } from "react-redux";
-import { setUser } from "./state/user"
-import axios from 'axios'
-
-
-
-
-
+import { setUser } from "./state/user";
+import axios from "axios";
+import { loadState } from "./utils/browserStorage";
 
 function App() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get("/api/user/me")
-      .then((user) => dispatch(setUser(user.data)))
+      .then((user) => {
+        const localCart = loadState().cart;
+        const remoteCart = user.data.cart;
+        dispatch(setUser(user.data));
+      })
       .catch((err) => {
         console.log(err);
       });

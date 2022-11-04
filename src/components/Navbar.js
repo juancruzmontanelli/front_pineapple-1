@@ -85,6 +85,13 @@ const Navbar = () => {
                     <Avatar>{user.name.slice(0, 1)}</Avatar>
                   </IconButton>
                 </Tooltip>
+                <Link to="/cart">
+                  <IconButton sx={{ color: "#ed7203" }} aria-label="cart">
+                    <Badge badgeContent={totalItemsCart} color="secondary">
+                      <LocalGroceryStoreIcon />
+                    </Badge>
+                  </IconButton>
+                </Link>
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
