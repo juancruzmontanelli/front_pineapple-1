@@ -25,7 +25,7 @@ const SearchBar = () => {
     e.preventDefault();
 
     axios
-      .get("")
+      .get("/api/search")
       .then((res) => setFoundedData(res.data))
       .catch((err) => {
         console.log(err);

@@ -22,7 +22,7 @@ const Comments = ( { product } ) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [product.id]);
+  }, [product.url]);
 
   const handleComment = (e) => {
     setCommit(e.target.value);
@@ -40,28 +40,6 @@ console.log(product.id)
       .then((userRating) => setCommit(userRating.data))
       .catch((err) => console.log(err));
   };
-
-  let comentarios = [
-    { name: "Jorge Lopez", comment: "excelente teléfono", rating: 5 },
-    { name: "Mariano Gomez", comment: "no me gusta la pantalla", rating: 2 },
-    {
-      name: "Patricio Fernández",
-      comment: "Excelente para el precio. Bastante rápido en general",
-      rating: 4,
-    },
-    {
-      name: "German Reynoso",
-      comment: "Buena fluidez para ir de una ventana a otra",
-      rating: 3,
-    },
-    {
-      name: "Salvador Perez",
-      comment:
-        "Vengo de un moto g9 play que la verdad era más cómodo. Por la camara digo. Este no estabiliza los vídeos y el audio en recitales sale horrendo",
-      rating: 2,
-    },
-    { name: "Lautaro Acosta", comment: "No lo compraría", rating: 1 },
-  ];
 
   let suma = 0;
   let promedio = 0;
@@ -178,7 +156,7 @@ console.log(product.id)
                     justifyContent="center"
                     key={index}
                   >
-                    {comment.comment}
+                    {comment.commit}
                   </Typography>
                 </>
               ))}
