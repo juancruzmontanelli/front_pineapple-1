@@ -5,12 +5,11 @@ import ProductItem from "../commons/ProductItem";
 import axios from 'axios'
 import { setProducts } from "../state/products";
 
-
-
 const HomeProducts = () => {
   
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
+  
 
   useEffect(() => {
     axios
@@ -29,8 +28,7 @@ const HomeProducts = () => {
           <ProductItem data={product} key={index} />
         ))}
       </Grid>
-    </Grid>
-  );
+    </Grid>)  
 };
 
 export default HomeProducts;

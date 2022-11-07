@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { Box, styled, TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { setSearch } from "../state/search";
+import { searchProducts } from "../state/products";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
+
 
 const SearchBox = styled(Box)({
   display: "flex",
@@ -13,26 +16,24 @@ const SearchBox = styled(Box)({
 
 const SearchBar = () => {
   const [searchedValue, setSearchedValue] = useState("");
-  const [foundedData, setFoundedData] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const handleSearch = (e) => {
-    setSearchedValue(e.target.value);
+    setSearchedValue(e.target.value.toLowerCase());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .get("/api/search")
-      .then((res) => setFoundedData(res.data))
+      .get(`/api/search?str=${searchedValue}`)
+      .then((res) => dispatch(searchProducts(res.data)))
+      .then(() => navigate("/search"))
       .catch((err) => {
         console.log(err);
       });
   };
-
-  
 
   return (
     <>
@@ -40,7 +41,6 @@ const SearchBar = () => {
         <SearchBox>
           <TextField
             id="full-width-text-field"
-            value={searchedValue}
             onChange={handleSearch}
             placeholder="Buscá tu celular..."
             size="small"

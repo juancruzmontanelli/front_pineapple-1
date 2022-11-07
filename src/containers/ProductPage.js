@@ -104,7 +104,6 @@ const ProductPage = () => {
                   color: "black",
                 },
               }}
-              width="50%"
               variant="contained"
               onClick={handleBuyNow}
             >
