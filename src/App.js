@@ -9,28 +9,35 @@ import Login from "./containers/Login";
 import CreateUser from "./containers/CreateUser";
 import CreatesSuccess from "./containers/CreateSuccess";
 import Cart from "./containers/Cart";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
+import { setCart } from "./state/cart";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios
       .get("/api/user/me")
       .then((user) => {
         dispatch(setUser(user.data));
+
+        const userCart = user.data.items.map((item) => {
+          return { ...item.product, quantity: item.quantity };
+        });
+        dispatch(setCart(userCart));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [dispatch, user.id]);
 
   return (
-    <Box display='flex' flexDirection= 'column'>
+    <Box display="flex" flexDirection="column">
       <Navbar />
-      <Container flex={1} sx={{minHeight: 'calc(100vh - 301px)'}}>
+      <Container flex={1} sx={{ minHeight: "calc(100vh - 301px)" }}>
         <Routes>
           {/* Rutas publicas */}
           <Route path="/" element={<Home />} />

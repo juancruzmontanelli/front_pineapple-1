@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/user";
+import { mergeCart } from "../state/cart";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -32,10 +33,11 @@ const Login = () => {
         })
         .then((response) => {
           dispatch(setUser(response.data));
+          dispatch(mergeCart());
           navigate("/");
         })
         .catch((error) => {
-          alert('Revise los datos ingresados');
+          alert("Revise los datos ingresados");
         })
     ) : (
       <FormHelperText error>Datos incorrectos</FormHelperText>
