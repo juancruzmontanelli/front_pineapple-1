@@ -13,3 +13,6 @@ export default createReducer(initialState, {
   [filterBrandProducts]: (state, action) => {return {...state, filterBrand: action.payload }},
   [filterPriceProducts]: (state, action) => {return {...state, filterPrice: action.payload }}
 });
+
+
+

@@ -15,6 +15,7 @@ const HomeSidebar = () => {
     color: "black",
     justifyContent: "left",
     height: "30px",
+    width: '70%'
   });
 
   const handleFilter = (event) => {
