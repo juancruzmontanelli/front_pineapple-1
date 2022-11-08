@@ -22,7 +22,6 @@ const MenuUser = () => {
   const user = useSelector((state) => state.user);
   const totalItemsCart = useSelector((state) => state.cart.length);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const navigate = useNavigate();
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -30,7 +29,7 @@ const MenuUser = () => {
 
   const handleCloseProfile = () => {
     setAnchorElUser(null);
-    navigate('/account/settings')
+    navigate("/account/settings");
   };
 
   const handleCloseLogOut = () => {
