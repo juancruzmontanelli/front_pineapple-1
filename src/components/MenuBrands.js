@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { IconButton, Menu, MenuItem, Box } from "@mui/material";
-
+import axios from "axios";
+import { filterBrandProducts } from "../state/products";
 import MenuIcon from "@mui/icons-material/Menu";
-
-const brands = ["Motorola", "Samsung", "Apple", "TCL", "Xiaomi", "Huawei", "LG"];
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 const MenuBrands = () => {
-  
+  const brands = [
+    "Apple",
+    "Samsung",
+    "Xiaomi",
+    "OnePlus",
+    "Realme",
+    "LG",
+    "Oppo",
+  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -16,8 +27,20 @@ const MenuBrands = () => {
     setAnchorEl(null);
   };
 
+  const handleBrand = (event) => {
+    event.preventDefault();
+
+    axios
+      .get(`/api/search/filter?model=${event.currentTarget}`)
+      .then((res) => dispatch(filterBrandProducts(res.data)))
+      .then(() => navigate(`/search/brand`))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <Box display='flex' alignItems='center'>
+    <Box display="flex" alignItems="center">
       <IconButton
         sx={{ color: "#ed7203" }}
         aria-label="more"
@@ -44,11 +67,8 @@ const MenuBrands = () => {
         }}
       >
         {brands.map((brand, index) => (
-          <MenuItem
-            key={index}
-            onClick={handleClose}
-          >
-            {brand}
+          <MenuItem key={index} onClick={handleBrand} value={brand}>
+            {brand} 
           </MenuItem>
         ))}
       </Menu>

@@ -29,7 +29,7 @@ const SearchBar = () => {
     axios
       .get(`/api/search?str=${searchedValue}`)
       .then((res) => dispatch(searchProducts(res.data)))
-      .then(() => navigate("/search"))
+      .then(() => navigate("/search/products"))
       .catch((err) => {
         console.log(err);
       });

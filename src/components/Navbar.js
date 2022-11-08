@@ -1,6 +1,5 @@
 import React from "react";
 import SearchBar from "./SearchBar";
-import MenuBrands from "./MenuBrands";
 import MenuUser from "./MenuUser";
 import logoPineapple from "../assets/logopineapple2.png";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
@@ -44,9 +43,9 @@ const Navbar = () => {
         <StyledToolBar>
           <>
             <Box display="flex" gap={5}>
-              <MenuBrands />
+             
               <Link to="/">
-                <img src={logoPineapple} alt="logo pineapple" height={50} />
+                <img src={logoPineapple} alt="logo pineapple" height={50} style={{marginLeft:'40px'}} />
               </Link>
             </Box>
             <Box>

@@ -4,7 +4,6 @@ import { Container, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProductPage from "./containers/ProductPage";
-import Search from "./containers/Search";
 import UserProfile from "./containers/UserProfile";
 import Order from "./containers/Order";
 import Home from "./containers/Home";
@@ -47,7 +46,7 @@ function App() {
         <Routes>
           {/* Rutas publicas */}
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search/:type" element={<Home />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />

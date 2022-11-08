@@ -26,24 +26,26 @@ const UserProfile = () => {
   const [isValidPass, setIsValidPass] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const dispatch = useDispatch();
-  const initialState = { name: "", email: "", password: "", address: "" };
-  const [updatedUser, setUpdatedUser] = useState(initialState);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [address, setAddress] = useState(user.address);
+  const [pass, setPass] = useState("");
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   const handleName = (e) => {
-    setUpdatedUser({ ...updatedUser, name: e.target.value });
+    setName(e.target.value);
   };
 
   const handleAddress = (e) => {
-    setUpdatedUser({ ...updatedUser, address: e.target.value });
+    setAddress(e.target.value);
   };
 
   const handleEmail = (e) => {
     let emailInput = e.target.value;
-    setUpdatedUser({ ...updatedUser, email: emailInput });
+    setEmail(emailInput);
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
@@ -51,7 +53,7 @@ const UserProfile = () => {
 
   const handlePass = (e) => {
     let passInput = e.target.value;
-    setUpdatedUser({ ...updatedUser, password: passInput });
+    setPass(passInput);
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
     regex.test(passInput) ? setIsValidPass(true) : setIsValidPass(false);
@@ -61,7 +63,7 @@ const UserProfile = () => {
     e.preventDefault();
     isValidEmail && isValidPass ? (
       axios
-        .put(`/api/user/update`, updatedUser)
+        .put(`/api/user/update`, { name, email, address, pass })
         .then((response) => {
           dispatch(setUser(response.data));
         })
@@ -113,6 +115,7 @@ const UserProfile = () => {
               <Typography>{user.name}</Typography>
               <FormControl>
                 <TextField
+                  value={name}
                   sx={{ mb: "2%" }}
                   id="outlined-required"
                   placeholder="Nombre"
@@ -122,6 +125,7 @@ const UserProfile = () => {
               <Typography>{user.email}</Typography>
               <FormControl>
                 <TextField
+                  value={email}
                   sx={{ mb: "2%" }}
                   id="outlined-required"
                   placeholder="Email"
@@ -136,6 +140,7 @@ const UserProfile = () => {
               <Typography>Dirección</Typography>
               <FormControl>
                 <TextField
+                  value={address}
                   sx={{ mb: "2%" }}
                   id="outlined-required"
                   placeholder="Domicilio"
@@ -173,15 +178,9 @@ const UserProfile = () => {
               <TextField
                 sx={{ mb: "2%" }}
                 id="outlined-required"
-                placeholder="Contraseña actual"
-                type="password"
-              />
-
-              <TextField
-                sx={{ mb: "2%" }}
-                id="outlined-required"
                 placeholder="Contraseña nueva"
                 type="password"
+                onChange={handlePass}
               />
             </Box>
           </AccordionDetails>
