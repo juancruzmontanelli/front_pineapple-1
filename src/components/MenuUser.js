@@ -17,6 +17,7 @@ import axios from "axios";
 import { cleanCart } from "../state/cart";
 
 const MenuUser = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const totalItemsCart = useSelector((state) => state.cart.length);
@@ -25,6 +26,11 @@ const MenuUser = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleCloseProfile = () => {
+    setAnchorElUser(null);
+    navigate('/account/settings')
   };
 
   const handleCloseLogOut = () => {
@@ -74,7 +80,7 @@ const MenuUser = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem onClick={handleCloseProfile}>
           <Typography>Perfil</Typography>
         </MenuItem>
         <MenuItem onClick={handleCloseLogOut}>

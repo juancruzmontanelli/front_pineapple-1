@@ -4,6 +4,9 @@ import { Container, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProductPage from "./containers/ProductPage";
+import Search from "./containers/Search";
+import UserProfile from "./containers/UserProfile";
+import Order from "./containers/Order";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import CreateUser from "./containers/CreateUser";
@@ -41,7 +44,7 @@ function App() {
         <Routes>
           {/* Rutas publicas */}
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<h1>Search</h1>} />
+          <Route path="/search" element={<Search />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
@@ -49,9 +52,9 @@ function App() {
           <Route path="/createSuccess" element={<CreatesSuccess />} />
 
           {/* Rutas de usuario [Solo logueado] */}
-          <Route path="/account/orders" element={<h1>User orders</h1>} />
+          <Route path="/account/orders" element={<Order />} />
           <Route path="/account/orders/:id" element={<h1>Order details</h1>} />
-          <Route path="/account/settings" element={<h1>User settings</h1>} />
+          <Route path="/account/settings" element={<UserProfile />} />
 
           {/* Rutas de administrador */}
           <Route path="/admin/products" element={<h1>Products list</h1>} />

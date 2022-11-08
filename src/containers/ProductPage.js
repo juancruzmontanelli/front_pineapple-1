@@ -96,22 +96,20 @@ const ProductPage = () => {
                 sx={{
                   bgcolor: "#ed7203",
                   color: "black",
-                  width: "40%",
-                  mb: 2,
-                  "&:hover": {
-                    backgroundColor: "#cf6a0e",
-                    color: "black",
-                  },
-                }}
-                width="50%"
-                variant="contained"
-                onClick={handleBuyNow}
-              >
-                Comprar ahora
-              </Button>
-              <Button
-                sx={{
-                  bgcolor: "#ed7203",
+                },
+              }}
+              variant="contained"
+              onClick={handleBuyNow}
+            >
+              Comprar ahora
+            </Button>
+            <Button
+              sx={{
+                bgcolor: "#ed7203",
+                color: "black",
+                width: "40%",
+                "&:hover": {
+                  backgroundColor: "#cf6a0e",
                   color: "black",
                   width: "40%",
                   "&:hover": {
