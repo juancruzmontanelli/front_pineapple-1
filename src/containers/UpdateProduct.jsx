@@ -28,32 +28,26 @@ import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { BorderStyle } from "@mui/icons-material";
 
-
 //QUE SE VEA EL PRODUCTO PANTALLA WIDTH 50%
 // AGREGAR EN LA OTRA MITAD UN FORM CON LOS CAMPOS
 //HACER UNA COPIA DEL ESTADO Y QUE SE VEA EN EL FORM ANTERIOR
 //LA MODIFICACIONES EN EL FORM QUE SE VEAN EN LA PANTALLA PROD
 
 const UpdateProduct = () => {
-  // const [value, setValue] = React.useState("1");
-  //   const [product, setProduct] = useState(null);
-
-  //   const { id } = useParams();
-  //   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-
-  const id= 16
-    // useEffect(() => {
-    //   axios
-    //     .get(`/api/products/${id}`)//.get(`/api/products/${id}`)
-    //     .then((res) => setProduct(res.data))
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }, [id]);
-
-  
   const [showAlert, setShowAlert] = useState(false);
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    axios
+      .get(`/api/products/${id}`)
+      .then(
+        (res) => console.log("ESTE ES EL RES DEL PROD", res)
+        //setProduct(res.data)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,35 +60,10 @@ const UpdateProduct = () => {
     //   .catch((error) => {
     //     alert("Revise los datos ingresados");
     //   });
-   
   };
-
-
-
-  const product = {
-    id: "0",
-    img: "https://inversionesczhn.com/wp-content/uploads/2020/10/OnePlus-7T-Pro-5G-McLaren-2-550x550-1-1.jpg",
-    brand: "OnePlus",
-    model: "7T Pro McLaren Edition",
-    batteryCapacity: "4086",
-    screenSize: "6.67",
-    resolutionX: "1444",
-    resolutionY: "3120",
-    processor: "8",
-    ram: "12000",
-    internalStorage: "256.0",
-    rearCamera: "48.0",
-    frontCamera: "16.0",
-    operatingSystem: "Android",
-    numberOfSims: "2",
-    price: "711.85",
-  };
-
-
 
   const handleUpdateProduct = (e) => {
     const { id, value } = e.target;
-    
   };
 
   return (
