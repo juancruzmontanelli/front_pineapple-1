@@ -15,7 +15,10 @@ import Cart from "./containers/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
+import AddProduct from "./containers/AddProduct";
+import UpdateProduct from "./containers/UpdateProduct";
 import { setCart } from "./state/cart";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -58,14 +61,8 @@ function App() {
 
           {/* Rutas de administrador */}
           <Route path="/admin/products" element={<h1>Products list</h1>} />
-          <Route
-            path="/admin/products/new"
-            element={<h1>New product form</h1>}
-          />
-          <Route
-            path="/admin/products/edit"
-            element={<h1>Edit product form</h1>}
-          />
+          <Route path="/admin/products/new" element={<AddProduct />} />
+          <Route path="/admin/products/edit/:id" element={<UpdateProduct />} />
           <Route path="/admin/orders" element={<h1>Orders history</h1>} />
           <Route path="/admin/users" element={<h1>Users List</h1>} />
           <Route path="/admin/brands" element={<h1>Brands list</h1>} />
