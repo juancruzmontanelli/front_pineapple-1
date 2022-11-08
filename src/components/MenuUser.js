@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../state/user";
 import axios from "axios";
+import { cleanCart } from "../state/cart";
 
 const MenuUser = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const MenuUser = () => {
   const user = useSelector((state) => state.user);
   const totalItemsCart = useSelector((state) => state.cart.length);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -36,7 +38,11 @@ const MenuUser = () => {
 
     axios
       .post("/api/user/logout")
-      .then(() => dispatch(logOut()))
+      .then(() => {
+        dispatch(logOut());
+        dispatch(cleanCart());
+        navigate("/");
+      })
       .catch((err) => console.log(err));
   };
 

@@ -8,7 +8,7 @@ const CartHeader = () => {
   return (
     <>
       <Stepper activeStep={0} sx={{ marginY: "40px" }}>
-        {["Carrito", "Detalles de envio", "Pago"].map((label) => (
+        {["Carrito", "Detalles de pago", "Compra realizada"].map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>

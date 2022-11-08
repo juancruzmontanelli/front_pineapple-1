@@ -1,3 +1,7 @@
+import React from "react";
+import { useDispatch } from "react-redux";
+import { updateQuantity, removeProduct } from "../state/cart";
+
 import {
   Button,
   Card,
@@ -6,35 +10,23 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+
 import { totalPriceFormatter } from "../utils/formatter";
 import { isNumeric } from "../utils/validation";
+
 import CartQuantitySelector from "./CartQuantitySelector";
-import {
-  incrementQuantity,
-  decrementQuantity,
-  setQuantity,
-  removeProduct,
-} from "../state/cart";
-import { useDispatch } from "react-redux";
 
 const CartListItem = ({ data }) => {
-  const { id, title, img, quantity, price } = data;
+  const { id, name, img, quantity, price } = data;
   const dispatch = useDispatch();
   const total = quantity * price;
 
-  const handleQuantity = (type, total) => {
+  const handleQuantity = (type, total = quantity) => {
     if (type === "decrement" && quantity === 1) return false;
-    if (type === "set" && (!isNumeric(total) || total === Number(0)))
+    if (type === "set" && (!isNumeric(total) || Number(total) === 0))
       return false;
 
-    if (type === "set") {
-      dispatch(setQuantity({ id, quantity: Number(total) }));
-    } else if (type === "increment") {
-      dispatch(incrementQuantity(id));
-    } else if (type === "decrement") {
-      dispatch(decrementQuantity(id));
-    }
+    dispatch(updateQuantity({ id, type, quantity: Number(total) }));
   };
 
   const handleRemoveItem = () => {
@@ -54,7 +46,7 @@ const CartListItem = ({ data }) => {
         sx={{ maxWidth: "100px" }}
         component="img"
         image={img}
-        alt={title}
+        alt={name}
       />
       <CardContent
         sx={{
@@ -64,7 +56,7 @@ const CartListItem = ({ data }) => {
         }}
       >
         <Typography variant="h6" component="p" sx={{ pl: "5px" }}>
-          {title}
+          {name}
         </Typography>
         <Button
           size="small"
