@@ -8,7 +8,6 @@ export const addProduct = createAsyncThunk(
     if (state.find((prod) => prod.id === data.id)) {
       return rejectWithValue("El producto ya existe en el carrito");
     }
-    console.log(data, state);
 
     const product = { ...data, quantity: 1 };
     return cartService
