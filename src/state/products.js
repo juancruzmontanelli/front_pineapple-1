@@ -2,8 +2,10 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 
 export const setProducts = createAction("SET_PRODUCTS");
 
-const initialState = []
+const initialState = { products: [] };
 
 export default createReducer(initialState, {
-  [setProducts]: (state, action) => action.payload,
+  [setProducts]: (state, action) => {
+    return { ...state, products: [...state.products, action.payload] };
+  },
 });
