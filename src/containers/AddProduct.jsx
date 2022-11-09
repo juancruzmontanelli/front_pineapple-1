@@ -31,7 +31,6 @@ const AddProduct = () => {
     price: null,
   };
 
- 
   const [product, setProduct] = useState(initialState);
 
   const handleSubmit = (e) => {

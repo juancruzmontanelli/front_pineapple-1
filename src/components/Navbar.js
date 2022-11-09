@@ -16,13 +16,9 @@ import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-
 const Navbar = () => {
-  
-
   const user = useSelector((state) => state.user);
-  const totalItemsCart = useSelector((state) => state.cart.length);
- 
+  const totalItemsCart = useSelector((state) => state.cart.items.length);
 
   const StyledToolBar = styled(Toolbar)({
     display: "flex",
@@ -43,9 +39,13 @@ const Navbar = () => {
         <StyledToolBar>
           <>
             <Box display="flex" gap={5}>
-             
               <Link to="/">
-                <img src={logoPineapple} alt="logo pineapple" height={50} style={{marginLeft:'40px'}} />
+                <img
+                  src={logoPineapple}
+                  alt="logo pineapple"
+                  height={50}
+                  style={{ marginLeft: "40px" }}
+                />
               </Link>
             </Box>
             <Box>
