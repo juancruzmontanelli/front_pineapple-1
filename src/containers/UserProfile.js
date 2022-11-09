@@ -112,7 +112,7 @@ const UserProfile = () => {
               alignItems="center"
               alignContent="center"
             >
-              <Typography>{user.name}</Typography>
+              
               <FormControl>
                 <TextField
                   value={name}
@@ -122,7 +122,7 @@ const UserProfile = () => {
                   onChange={handleName}
                 />
               </FormControl>
-              <Typography>{user.email}</Typography>
+              
               <FormControl>
                 <TextField
                   value={email}
@@ -137,7 +137,7 @@ const UserProfile = () => {
                   </FormHelperText>
                 )}
               </FormControl>
-              <Typography>Dirección</Typography>
+             
               <FormControl>
                 <TextField
                   value={address}
