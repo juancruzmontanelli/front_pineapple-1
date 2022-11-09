@@ -3,12 +3,15 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import axios from "axios";
 
-export default function AlertConvertAdmin({ id }) {
+import { useSelector } from "react-redux";
+
+export default function AlertConvertAdmin({ id,isAdmin }) {
   const [open, setOpen] = React.useState(false);
- 
+  const user = useSelector((state) => state.user);
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -23,41 +26,75 @@ export default function AlertConvertAdmin({ id }) {
     e.preventDefault();
 
     axios
-      .put(`/api/user/update`, {})
+      .put(`/api/user/promoteAdmin`, {id,isAdmin})
       .then(() => {})
       .catch((error) => {
         console.log(error);
       });
   };
 
-  return (
-    <div>
-      <Button
-        variant="contained"
-        size="small"
-        sx={{ width: "100%" }}
-        onClick={handleClickOpen}
-        startIcon={<AdminPanelSettingsIcon />}
-      >
-        Convertir a admin
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          ¿Estás seguro/a de que deseás convertir a este usuario en
-          administrador?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleSubmit}>Estoy seguro/a</Button>
-          <Button onClick={handleClose} autoFocus>
-            Cancelar
+  if(isAdmin) {
+    return (
+        <div>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ width: "100%" }}
+            onClick={handleClickOpen}
+         
+          >
+            Remove Admin
           </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              ¿Estás seguro/a de que deseás quitarle a este usuario los permisos de
+              administrador?
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleSubmit}>Estoy seguro/a</Button>
+              <Button onClick={handleClose} autoFocus>
+                Cancelar
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+  } else {
+    return (
+        <div>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ width: "100%" }}
+            onClick={handleClickOpen}
+          >
+            Add Admin
+          </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              ¿Estás seguro/a de que deseás convertir a este usuario en
+              administrador?
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleSubmit}>Estoy seguro/a</Button>
+              <Button onClick={handleClose} autoFocus>
+                Cancelar
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+  }
+
+  
 }

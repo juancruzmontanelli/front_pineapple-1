@@ -39,8 +39,6 @@ const AdminSidebar = () => {
       <StyledButton onClick={handleAdmin} value='products/'>Productos</StyledButton>
       <StyledButton onClick={handleAdmin} value='products/new/'>Agregar productos</StyledButton>
       <StyledButton onClick={handleAdmin} value='brands/'>Marcas</StyledButton>
-      <StyledButton onClick={handleAdmin} value='brands/new/'>Agregar marcas</StyledButton>
-      <StyledButton onClick={handleAdmin} value='brands/edit/'>Editar marcas</StyledButton>
     </Grid>
   );
 };

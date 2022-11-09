@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Button, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,17 +9,28 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import AlertsAdminDelete from "./AlertsAdminDelete";
-import { useSelector } from "react-redux";
+import axios from 'axios'
 import { useNavigate } from "react-router";
 
-const AdminProducts = () => {
-  const products = useSelector((state) => state.products.products);
+const AdminBrands = () => {
+
+  const [brands, setBrands] = useState([]);
+
   const navigate = useNavigate();
 
   const handleEdit = (e) => {
     e.preventDefault();
     navigate(`edit/${e.target.value}`);
   };
+
+  useEffect(() => {
+    axios
+      .get("/api/brand")
+      .then((res) => setBrands(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Grid
@@ -32,7 +43,7 @@ const AdminProducts = () => {
     >
       <Grid item xs={11} sx={{ width: "100%" }}>
         <Typography variant="h5" sx={{ mb: "35px", mt: "10px" }}>
-          Productos
+          Marcas
         </Typography>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
@@ -44,17 +55,17 @@ const AdminProducts = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((product) => (
+              {brands.map((brand) => (
                 <TableRow
-                  key={product.id}
+                  key={brand.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {product.name}
+                    {brand.name}
                   </TableCell>
                   <TableCell align="right">
                     <Button
-                      value={product.id}
+                      value={brand.id}
                       onClick={handleEdit}
                       size="small"
                       variant="contained"
@@ -64,7 +75,7 @@ const AdminProducts = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <AlertsAdminDelete url={product.url} />
+                    <AlertsAdminDelete name={brand.name}/>
                   </TableCell>
                 </TableRow>
               ))}
@@ -76,4 +87,4 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
+export default AdminBrands;
