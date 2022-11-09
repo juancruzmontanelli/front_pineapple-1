@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../state/products";
 
 const AddProduct = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -33,20 +31,17 @@ const AddProduct = () => {
     price: null,
   };
 
-  const dispatch = useDispatch();
   const [product, setProduct] = useState(initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post("/api/products/add", [product])
-      .then((res) => {
-        console.log("ESTE ES EL NUEVO RES", res.data[0]);
-        dispatch(setProducts(res.data[0]));
+      .then(() => {
         setShowAlert(true);
       })
       .catch((error) => {
-        alert("1");
+        alert("Error data to create a product");
       });
   };
 

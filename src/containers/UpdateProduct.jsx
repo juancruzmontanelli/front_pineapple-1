@@ -1,69 +1,49 @@
 import React, { useState, useEffect } from "react";
-import Comments from "../components/Comments";
 import axios from "axios";
 import {
   Grid,
-  Typography,
   Button,
-  Box,
-  Tab,
   FormControl,
-  InputLabel,
-  Input,
   TextField,
   Fade,
   Alert,
+  OutlinedInput,
+  FormHelperText,
 } from "@mui/material";
-import { TabPanel, TabContext, TabList } from "@mui/lab";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import AspectRatioOutlinedIcon from "@mui/icons-material/AspectRatioOutlined";
-import SdStorageOutlinedIcon from "@mui/icons-material/SdStorageOutlined";
-import DeveloperBoardOutlinedIcon from "@mui/icons-material/DeveloperBoardOutlined";
-import BatteryChargingFullOutlinedIcon from "@mui/icons-material/BatteryChargingFullOutlined";
-import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
-import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import { useParams, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { BorderStyle } from "@mui/icons-material";
-
-//QUE SE VEA EL PRODUCTO PANTALLA WIDTH 50%
-// AGREGAR EN LA OTRA MITAD UN FORM CON LOS CAMPOS
-//HACER UNA COPIA DEL ESTADO Y QUE SE VEA EN EL FORM ANTERIOR
-//LA MODIFICACIONES EN EL FORM QUE SE VEAN EN LA PANTALLA PROD
+import { useParams } from "react-router";
 
 const UpdateProduct = () => {
   const [showAlert, setShowAlert] = useState(false);
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [productUpdated, setProductUpdated] = useState({});
+
   useEffect(() => {
     axios
       .get(`/api/products/${id}`)
-      .then(
-        (res) => console.log("ESTE ES EL RES DEL PROD", res)
-        //setProduct(res.data)
-      )
+      .then((res) => {
+        return setProduct(res.data);
+      })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log("ESTE ES EL PAYLOAD QUE SE ENVIARA AL BACK:", );
-    // axios
-    //   .post("/api/products/update/:name", [{ ...}])
-    //   .then(() => {
-    //     setShowAlert(true);
-    //   })
-    //   .catch((error) => {
-    //     alert("Revise los datos ingresados");
-    //   });
+    axios
+      .put(`/api/products/update/${product.url}`, productUpdated)
+      .then(() => {
+        setShowAlert(true);
+      })
+      .catch((error) => {
+        alert("Revise los datos ingresados");
+      });
   };
 
   const handleUpdateProduct = (e) => {
     const { id, value } = e.target;
+    setProductUpdated({ ...productUpdated, [id]: value });
   };
 
   return (
@@ -91,168 +71,239 @@ const UpdateProduct = () => {
           sx={{ m: 2 }}
         >
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="img"
-              defaultValue={product.img}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="img"
+                value={product.img || ""}
+                aria-describedby="outlined-img-helper-text"
+                inputProps={{
+                  "aria-label": "img",
+                }}
+              />
+              <FormHelperText id="outlined-img-helper-text">img</FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="brand"
-              defaultValue={product.brand}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="brand"
+                value={product.brand || ""}
+                aria-describedby="outlined-brand-helper-text"
+                inputProps={{
+                  "aria-label": "brand",
+                }}
+              />
+              <FormHelperText id="outlined-brand-helper-text">
+                brand
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="model"
-              defaultValue={product.model}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="model"
+                value={product.model || ""}
+                aria-describedby="outlined-img-helper-text"
+                inputProps={{
+                  "aria-label": "model",
+                }}
+              />
+              <FormHelperText id="outlined-model-helper-text">
+                model
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="batteryCapacity"
-              defaultValue={product.batteryCapacity}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="batteryCapacity"
+                value={product.batteryCapacity || ""}
+                aria-describedby="outlined-batteryCapacity-helper-text"
+                inputProps={{
+                  "aria-label": "batteryCapacity",
+                }}
+              />
+              <FormHelperText id="outlined-batteryCapacity-helper-text">
+                batteryCapacity
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="screenSize"
-              defaultValue={product.screenSize}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="screenSize"
+                value={product.screenSize || ""}
+                aria-describedby="outlined-screenSize-helper-text"
+                inputProps={{
+                  "aria-label": "screenSize",
+                }}
+              />
+              <FormHelperText id="outlined-screenSize-helper-text">
+                screenSize
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="resolutionX"
-              defaultValue={product.resolutionX}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="resolutionX"
+                value={product.resolutionX || ""}
+                aria-describedby="outlined-resolutionX-helper-text"
+                inputProps={{
+                  "aria-label": "resolutionX",
+                }}
+              />
+              <FormHelperText id="outlined-resolutionX-helper-text">
+                resolutionX
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="resolutionY"
-              defaultValue={product.resolutionY}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="resolutionY"
+                value={product.resolutionY || ""}
+                aria-describedby="outlined-resolutionY-helper-text"
+                inputProps={{
+                  "aria-label": "resolutionY",
+                }}
+              />
+              <FormHelperText id="outlined-resolutionY-helper-text">
+                resolutionY
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="processor"
-              defaultValue={product.processor}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="processor"
+                value={product.img || ""}
+                aria-describedby="outlined-processor-helper-text"
+                inputProps={{
+                  "aria-label": "processor",
+                }}
+              />
+              <FormHelperText id="outlined-processor-helper-text">
+                processor
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="ram"
-              defaultValue={product.ram}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="ram"
+                value={product.ram || ""}
+                aria-describedby="outlined-ram-helper-text"
+                inputProps={{
+                  "aria-label": "ram",
+                }}
+              />
+              <FormHelperText id="outlined-ram-helper-text">ram</FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="internalStorage"
-              defaultValue={product.internalStorage}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="internalStorage"
+                value={product.internalStorage || ""}
+                aria-describedby="outlined-internalStorage-helper-text"
+                inputProps={{
+                  "aria-label": "internalStorage",
+                }}
+              />
+              <FormHelperText id="outlined-internalStorage-helper-text">
+                internalStorage
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="rearCamera"
-              defaultValue={product.rearCamera}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="rearCamera"
+                value={product.rearCamera || ""}
+                aria-describedby="outlined-rearCamera-helper-text"
+                inputProps={{
+                  "aria-label": "rearCamera",
+                }}
+              />
+              <FormHelperText id="outlined-rearCamera-helper-text">
+                rearCamera
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="frontCamera"
-              defaultValue={product.frontCamera}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="frontCamera"
+                value={product.frontCamera || ""}
+                aria-describedby="outlined-frontCamera-helper-text"
+                inputProps={{
+                  "aria-label": "frontCamera",
+                }}
+              />
+              <FormHelperText id="outlined-frontCamera-helper-text">
+                frontCamera
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="operatingSystem"
-              defaultValue={product.operatingSystem}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="operatingSystem"
+                value={product.operatingSystem || ""}
+                aria-describedby="outlined-operatingSystem-helper-text"
+                inputProps={{
+                  "aria-label": "operatingSystem",
+                }}
+              />
+              <FormHelperText id="outlined-operatingSystem-helper-text">
+                operatingSystem
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="numberOfSims"
-              defaultValue={product.numberOfSims}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="numberOfSims"
+                value={product.numberOfSims || ""}
+                aria-describedby="outlined-numberOfSims-helper-text"
+                inputProps={{
+                  "aria-label": "numberOfSims",
+                }}
+              />
+              <FormHelperText id="outlined-numberOfSims-helper-text">
+                numberOfSims
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
-              id="outlined-read-only-input"
-              label="price"
-              defaultValue={product.price}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <OutlinedInput
+                id="price"
+                value={product.price || ""}
+                aria-describedby="outlined-price-helper-text"
+                inputProps={{
+                  "aria-label": "price",
+                }}
+              />
+              <FormHelperText id="outlined-price-helper-text">
+                price
+              </FormHelperText>
+            </FormControl>
           </Grid>
         </Grid>
 
@@ -261,7 +312,7 @@ const UpdateProduct = () => {
             <TextField
               id="img"
               label="img"
-              defaultValue={product.img}
+              defaultValue={product.img || ""}
               InputProps={{
                 readOnly: false,
               }}
@@ -273,7 +324,7 @@ const UpdateProduct = () => {
             <TextField
               id="brand"
               label="brand"
-              defaultValue={product.brand}
+              defaultValue={product.brand || ""}
               InputProps={{
                 readOnly: false,
               }}
@@ -465,46 +516,3 @@ const UpdateProduct = () => {
 };
 
 export default UpdateProduct;
-
-{
-  /* <Grid item md={6}>
-  <img
-    style={{ width: "75%", marginTop: 20 }}
-    alt=""
-    src={product.img}
-  />
-</Grid>
-<Grid
-  item
-  xs={6}
-  display="flex"
-  flexDirection="column"
-  justifyContent="space-evenly"
-> 
-<TextField
-  id="outlined-read-only-input"
-  label="name"
-  defaultValue={product.name}
-  InputProps={{
-    readOnly: true,
-  }}
-/>
-   </Grid> */
-}
-
-//    <Grid
-//   item
-//   xs={6}
-//   // display="flex"
-//   // flexDirection="column"
-//   // justifyContent="space-evenly"
-// >
-// <TextField
-//   id="outlined-read-only-input"
-//   label="name"
-//   defaultValue={product.name}
-//   InputProps={{
-//     readOnly: true,
-//   }}
-// />
-//    </Grid>
