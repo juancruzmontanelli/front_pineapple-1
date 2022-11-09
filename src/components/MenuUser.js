@@ -20,7 +20,7 @@ const MenuUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const totalItemsCart = useSelector((state) => state.cart.length);
+  const totalItemsCart = useSelector((state) => state.cart.items.length);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleCloseUserMenu = () => {

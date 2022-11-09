@@ -4,7 +4,7 @@ import { cartService } from "../services/cart";
 export const addProduct = createAsyncThunk(
   "cart/addProduct",
   async (data, { getState, rejectWithValue }) => {
-    const state = getState().cart;
+    const state = getState().cart.items;
     if (state.find((prod) => prod.id === data.id)) {
       return rejectWithValue("El producto ya existe en el carrito");
     }
@@ -33,10 +33,6 @@ export const removeProduct = createAsyncThunk(
   }
 );
 
-export const mergeCart = createAsyncThunk("cart/merge", () => {
-  return cartService.mergeCart();
-});
-
 export const updateQuantity = createAsyncThunk(
   "cart/updateQuantity",
   async ({ id, type, quantity }, { rejectWithValue }) => {
@@ -57,27 +53,57 @@ export const updateQuantity = createAsyncThunk(
   }
 );
 
+export const mergeCart = createAsyncThunk("cart/merge", () => {
+  return cartService.mergeCart();
+});
+
+export const buyCart = createAsyncThunk(
+  "cart/buyCart",
+  async (paymentDetails, { rejectWithValue }) => {
+    return cartService
+      .finishOrder(paymentDetails)
+      .then(() => {})
+      .catch(() =>
+        rejectWithValue("Ha ocurrido un error al realizar su compra")
+      );
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState: { items: [], isLoading: false },
   reducers: {
     setCart(state, action) {
-      return action.payload;
+      //return action.payload;
+      state.items = action.payload;
     },
-    cleanCart() {
-      return [];
+    cleanCart(state) {
+      //return [];
+      state.items = [];
     },
   },
   extraReducers: {
     [addProduct.fulfilled]: (state, action) => {
-      return [...state, action.payload];
+      //return [...state, action.payload];
+      state.items = [...state.items, action.payload];
     },
     [updateQuantity.fulfilled]: (state, action) => {
-      const item = state.find((prod) => prod.id === action.payload.id);
+      const item = state.items.find((prod) => prod.id === action.payload.id);
       item.quantity = action.payload.quantity;
     },
     [removeProduct.fulfilled]: (state, action) => {
-      return state.filter((prod) => prod.id !== action.payload);
+      state.items = state.items.filter((prod) => prod.id !== action.payload);
+    },
+    [buyCart.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [buyCart.fulfilled]: (state, action) => {
+      //return [];
+      state.isLoading = false;
+      state.items = [];
+    },
+    [buyCart.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });
