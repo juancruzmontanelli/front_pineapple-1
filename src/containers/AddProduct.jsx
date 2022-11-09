@@ -40,9 +40,7 @@ const AddProduct = () => {
     e.preventDefault();
     axios
       .post("/api/products/add", [product])
-      .then((res) => {
-        console.log("ESTE ES EL NUEVO RES", res.data[0]);
-        dispatch(setProducts(res.data[0]));
+      .then(() => {
         setShowAlert(true);
       })
       .catch((error) => {
