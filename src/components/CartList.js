@@ -4,7 +4,7 @@ import CartListItem from "./CartListItem";
 import { useSelector } from "react-redux";
 
 const CartList = () => {
-  const products = useSelector((state) => state.cart);
+  const products = useSelector((state) => state.cart.items);
   return (
     <Grid xs={8} item>
       {products.map((product) => (

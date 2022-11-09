@@ -13,7 +13,7 @@ import SimCardOutlinedIcon from "@mui/icons-material/SimCardOutlined";
 import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { useParams, useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../state/cart";
 
 const ProductPage = () => {
@@ -23,6 +23,10 @@ const ProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const existsInCart = useSelector((state) => {
+    return state.cart.items.some((cartItem) => cartItem.id === product?.id);
+  });
 
   useEffect(() => {
     axios
@@ -121,8 +125,9 @@ const ProductPage = () => {
                 endIcon={<LocalGroceryStoreIcon />}
                 variant="contained"
                 onClick={handleAddToCart}
+                disabled={existsInCart}
               >
-                Agregar al carrito
+                {existsInCart ? "Añadido al carrito" : "Agregar al carrito"}
               </Button>
             </Box>
           </Grid>

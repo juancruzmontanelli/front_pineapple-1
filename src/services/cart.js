@@ -27,15 +27,15 @@ const deleteItem = async (productId) => {
   return axios.delete(`/api/cart/${productId}`).then((res) => res.data);
 };
 
-const finishOrder = () => {
-  return axios.post("api/cart/buy").then((res) => res.data);
+const finishOrder = async (paymentDetails) => {
+  return axios.post("api/cart/buy", paymentDetails).then((res) => res.data);
 };
 
 const mergeCart = () => {
   if (!userIsLogged()) return;
   const localData = loadState();
   axios
-    .post("api/cart/multiProducts", { products: localData.cart })
+    .post("api/cart/multiProducts", { products: localData.cart.items })
     .then((res) => res.data)
     .then(({ items }) => {
       return items.map((item) => {
