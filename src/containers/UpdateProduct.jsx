@@ -9,6 +9,7 @@ import {
   Alert,
   OutlinedInput,
   FormHelperText,
+  Typography,
 } from "@mui/material";
 import { useParams } from "react-router";
 
@@ -58,18 +59,14 @@ const UpdateProduct = () => {
         spacing={-2}
         style={{ width: "100%", BorderStyle: "dashed", borderColor: "black" }}
       >
-        <Grid item xs={12}>
-          {" "}
-          TITULO
-        </Grid>
-
         <Grid
           item
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
-          sx={{ m: 2 }}
+          xs={ 6 } 
         >
+           <Typography variant="h6" fontWeight="bold" textTransform="uppercase" textAlign="left" >Producto seleccionado</Typography>
           <Grid item xs={6}>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
               <OutlinedInput
@@ -307,7 +304,8 @@ const UpdateProduct = () => {
           </Grid>
         </Grid>
 
-        <Grid item display="flex" flexDirection="column">
+        <Grid item display="flex" flexDirection="column" xs={ 6 }>
+        <Typography variant="h6" fontWeight="bold" textTransform="uppercase" textAlign="left" >Cambios</Typography>
           <Grid item xs={6}>
             <TextField
               id="img"
@@ -499,7 +497,7 @@ const UpdateProduct = () => {
                 mb: 10,
                 mt: 3,
                 color: "black",
-                width: "100%",
+                width: "33%",
                 "&:hover": {
                   backgroundColor: "#cf6a0e",
                   color: "black",
