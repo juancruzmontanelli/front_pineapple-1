@@ -56,7 +56,7 @@ const MenuUser = () => {
   if(user.isAdmin || user.SuperAdmin) {
     return (
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="open settings">
+        <Tooltip>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar>{user.name.slice(0, 1)}</Avatar>
           </IconButton>

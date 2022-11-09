@@ -5,11 +5,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 
-import { useSelector } from "react-redux";
 
 export default function AlertConvertAdmin({ id,isAdmin }) {
   const [open, setOpen] = React.useState(false);
-  const user = useSelector((state) => state.user);
 
 
   const handleClickOpen = () => {

@@ -15,8 +15,8 @@ const HomeSidebar = () => {
 
   useEffect(() => {
     axios
-      .get("/api/products")
-      .then((res) => setBrands(res.data))
+      .get("/api/brand")
+      .then((res) => console.log(res.data))
       .catch((err) => {
         console.log(err);
       });

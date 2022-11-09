@@ -128,7 +128,7 @@ const Comments = ({ product }) => {
                     sx={{ mb: "10px" }}
                   />
                   <Typography variant="subtitle1">
-                    ({comments.comments.length} valoraciones)
+                    (Cantidad de valoraciones: {comments.comments.length})
                   </Typography>
                 </Box>
               </Box>
