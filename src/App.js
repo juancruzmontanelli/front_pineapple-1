@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProductPage from "./containers/ProductPage";
 import UserProfile from "./containers/UserProfile";
+import HomeAdmin from "./containers/HomeAdmin";
 import Order from "./containers/Order";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
@@ -14,8 +15,6 @@ import Cart from "./containers/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
-import AddProduct from "./containers/AddProduct";
-import UpdateProduct from "./containers/UpdateProduct";
 import { setCart } from "./state/cart";
 
 
@@ -59,14 +58,7 @@ function App() {
           <Route path="/account/settings" element={<UserProfile />} />
 
           {/* Rutas de administrador */}
-          <Route path="/admin/products" element={<h1>Products list</h1>} />
-          <Route path="/admin/products/new" element={<AddProduct />} />
-          <Route path="/admin/products/edit/:id" element={<UpdateProduct />} />
-          <Route path="/admin/orders" element={<h1>Orders history</h1>} />
-          <Route path="/admin/users" element={<h1>Users List</h1>} />
-          <Route path="/admin/brands" element={<h1>Brands list</h1>} />
-          <Route path="/admin/brands/new" element={<h1>New brand form</h1>} />
-          <Route path="/admin/brands/edit" element={<h1>Edit brand form</h1>} />
+          <Route path="/admin/*" element={<HomeAdmin />} />
         </Routes>
       </Container>
       <Footer />

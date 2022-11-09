@@ -66,7 +66,7 @@ const AddProduct = () => {
         rowSpacing={3}
       >
         <Grid item md={12}>
-          <Typography sx={{ pb: 2, pt: 5 }} variant="h4">
+          <Typography sx={{ pb: 2, pt: 5 }} variant="h5">
             Agregar producto
           </Typography>
         </Grid>

@@ -31,6 +31,10 @@ const MenuUser = () => {
     setAnchorElUser(null);
     navigate("/account/settings");
   };
+  const handleCloseAdmin = () => {
+    setAnchorElUser(null);
+    navigate("/admin");
+  };
 
   const handleCloseLogOut = () => {
     setAnchorElUser(null);
@@ -49,45 +53,92 @@ const MenuUser = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  return (
-    <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar>{user.name.slice(0, 1)}</Avatar>
-        </IconButton>
-      </Tooltip>
-      <Link to="/cart">
-        <IconButton sx={{ color: "#ed7203", ml: "10px" }} aria-label="cart">
-          <Badge badgeContent={totalItemsCart} color="secondary">
-            <LocalGroceryStoreIcon />
-          </Badge>
-        </IconButton>
-      </Link>
-      <Menu
-        sx={{ mt: "45px" }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        <MenuItem onClick={handleCloseProfile}>
-          <Typography>Perfil</Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseLogOut}>
-          <Typography>Cerrar sesión</Typography>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
+  if(user.isAdmin || user.SuperAdmin) {
+    return (
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip>
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar>{user.name.slice(0, 1)}</Avatar>
+          </IconButton>
+        </Tooltip>
+        <Link to="/cart">
+          <IconButton sx={{ color: "#ed7203", ml: "10px" }} aria-label="cart">
+            <Badge badgeContent={totalItemsCart} color="secondary">
+              <LocalGroceryStoreIcon />
+            </Badge>
+          </IconButton>
+        </Link>
+        <Menu
+          sx={{ mt: "45px" }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          <MenuItem onClick={handleCloseProfile}>
+            <Typography>Perfil</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseAdmin}>
+            <Typography>Panel de administrador</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseLogOut}>
+            <Typography>Cerrar sesión</Typography>
+          </MenuItem>
+        </Menu>
+      </Box>
+    );
+  } else {
+    return (
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip title="open settings">
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar>{user.name.slice(0, 1)}</Avatar>
+          </IconButton>
+        </Tooltip>
+        <Link to="/cart">
+          <IconButton sx={{ color: "#ed7203", ml: "10px" }} aria-label="cart">
+            <Badge badgeContent={totalItemsCart} color="secondary">
+              <LocalGroceryStoreIcon />
+            </Badge>
+          </IconButton>
+        </Link>
+        <Menu
+          sx={{ mt: "45px" }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          <MenuItem onClick={handleCloseProfile}>
+            <Typography>Perfil</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseLogOut}>
+            <Typography>Cerrar sesión</Typography>
+          </MenuItem>
+        </Menu>
+      </Box>
+    );
+  }
+
+  
 };
 
 export default MenuUser;

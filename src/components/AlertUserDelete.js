@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
 
-export default function AlertDialog() {
+export default function AlertUserDelete() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch()
   const navigate = useNavigate()
