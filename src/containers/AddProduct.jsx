@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../state/products";
 
 const AddProduct = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -33,7 +31,6 @@ const AddProduct = () => {
     price: null,
   };
 
-  const dispatch = useDispatch();
   const [product, setProduct] = useState(initialState);
 
   const handleSubmit = (e) => {
@@ -44,7 +41,7 @@ const AddProduct = () => {
         setShowAlert(true);
       })
       .catch((error) => {
-        alert("1");
+        alert("Error data to create a product");
       });
   };
 
