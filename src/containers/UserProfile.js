@@ -9,8 +9,10 @@ import {
   Button,
   FormHelperText,
   FormControl,
+  Alert,
+  Fade,
 } from "@mui/material";
-import AlertDialog from "../components/Alert";
+import AlertUserDelete from "../components/AlertUserDelete";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { setUser } from "../state/user";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -21,6 +23,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 const UserProfile = () => {
+  const [showAlert, setShowAlert] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const user = useSelector((state) => state.user);
   const [isValidPass, setIsValidPass] = useState(true);
@@ -66,6 +69,7 @@ const UserProfile = () => {
         .put(`/api/user/update`, { name, email, address, pass })
         .then((response) => {
           dispatch(setUser(response.data));
+          setShowAlert(true);
         })
         .catch((error) => {
           alert("Revise los datos ingresados");
@@ -76,173 +80,183 @@ const UserProfile = () => {
   };
 
   return (
-    <Grid
-      container
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignContent="center"
-    >
-      <Grid xs={12} item width="80%">
-        <Typography sx={{ mt: "5%", mb: "5%" }} variant="h4">
-          Mi cuenta
-        </Typography>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <PermIdentityOutlinedIcon sx={{ mr: "2%" }} />
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Información de tu cuenta
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Editá tu nombre, domicilio o email
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              alignContent="center"
-            >
-              
-              <FormControl>
-                <TextField
-                  value={name}
-                  sx={{ mb: "2%" }}
-                  id="outlined-required"
-                  placeholder="Nombre"
-                  onChange={handleName}
-                />
-              </FormControl>
-              
-              <FormControl>
-                <TextField
-                  value={email}
-                  sx={{ mb: "2%" }}
-                  id="outlined-required"
-                  placeholder="Email"
-                  onChange={handleEmail}
-                />
-                {!isValidEmail && (
-                  <FormHelperText error>
-                    Dirección de correo incorrecta
-                  </FormHelperText>
-                )}
-              </FormControl>
-             
-              <FormControl>
-                <TextField
-                  value={address}
-                  sx={{ mb: "2%" }}
-                  id="outlined-required"
-                  placeholder="Domicilio"
-                  onChange={handleAddress}
-                />
-              </FormControl>
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <KeyIcon sx={{ mr: "2%" }} />
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Cambiá tu contraseña
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Modificá tu contraseña en cualquier momento
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              alignContent="center"
-            >
-              <TextField
-                sx={{ mb: "2%" }}
-                id="outlined-required"
-                placeholder="Contraseña nueva"
-                type="password"
-                onChange={handlePass}
-              />
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <HeartBrokenIcon sx={{ mr: "2%" }} />
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Desactivá tu cuenta
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Te vamos a extrañar :(
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              alignContent="center"
-            >
-              <AlertDialog />
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-      </Grid>
+    <>
       <Grid
-        xs={12}
-        item
-        marginBottom="10%"
+        container
         display="flex"
-        justifyContent="right"
-        marginTop="5%"
+        flexDirection="column"
+        justifyContent="center"
+        alignContent="center"
       >
-        <Button
-          type="submit"
-          variant="contained"
-          onClick={handleSubmit}
-          sx={{
-            bgcolor: "#ed7203",
-            color: "black",
-            height: "15%",
-            width: "25%",
-            mb: 2,
-            "&:hover": {
-              backgroundColor: "#cf6a0e",
-              color: "black",
-            },
-          }}
+        <Grid xs={12} item width="80%">
+          <Typography sx={{ mt: "5%", mb: "5%" }} variant="h4">
+            Mi cuenta
+          </Typography>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <PermIdentityOutlinedIcon sx={{ mr: "2%" }} />
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Información de tu cuenta
+              </Typography>
+              <Typography sx={{ color: "text.secondary" }}>
+                Editá tu nombre, domicilio o email
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+              >
+                <FormControl>
+                  <TextField
+                    value={name}
+                    sx={{ mb: "2%" }}
+                    id="outlined-required"
+                    placeholder="Nombre"
+                    onChange={handleName}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <TextField
+                    value={email}
+                    sx={{ mb: "2%" }}
+                    id="outlined-required"
+                    placeholder="Email"
+                    onChange={handleEmail}
+                  />
+                  {!isValidEmail && (
+                    <FormHelperText error>
+                      Dirección de correo incorrecta
+                    </FormHelperText>
+                  )}
+                </FormControl>
+
+                <FormControl>
+                  <TextField
+                    value={address}
+                    sx={{ mb: "2%" }}
+                    id="outlined-required"
+                    placeholder="Domicilio"
+                    onChange={handleAddress}
+                  />
+                </FormControl>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <KeyIcon sx={{ mr: "2%" }} />
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Cambiá tu contraseña
+              </Typography>
+              <Typography sx={{ color: "text.secondary" }}>
+                Modificá tu contraseña en cualquier momento
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+              >
+                <TextField
+                  sx={{ mb: "2%" }}
+                  id="outlined-required"
+                  placeholder="Contraseña nueva"
+                  type="password"
+                  onChange={handlePass}
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3bh-content"
+              id="panel3bh-header"
+            >
+              <HeartBrokenIcon sx={{ mr: "2%" }} />
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Desactivá tu cuenta
+              </Typography>
+              <Typography sx={{ color: "text.secondary" }}>
+                Te vamos a extrañar :(
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+              >
+                <AlertUserDelete />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+        <Grid
+          xs={12}
+          item
+          marginBottom="10%"
+          display="flex"
+          justifyContent="right"
+          marginTop="5%"
         >
-          Actualizar mi perfil
-        </Button>
+          <Box display='flex' flexDirection='column'>
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              bgcolor: "#ed7203",
+              color: "black",
+              height: "50%",
+              width: "100%",
+              mb: 2,
+              "&:hover": {
+                backgroundColor: "#cf6a0e",
+                color: "black",
+              },
+            }}
+          >
+            Actualizar mi perfil
+          </Button>
+          <Box sx={{mt:'20px'}}>
+            {showAlert && (
+              <Fade in={showAlert} timeout={1000}>
+                <Alert>Usuario actualizado</Alert>
+              </Fade>
+            )}
+          </Box>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

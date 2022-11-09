@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../state/products";
 
 const AddProduct = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -33,7 +31,7 @@ const AddProduct = () => {
     price: null,
   };
 
-  const dispatch = useDispatch();
+ 
   const [product, setProduct] = useState(initialState);
 
   const handleSubmit = (e) => {
@@ -44,7 +42,7 @@ const AddProduct = () => {
         setShowAlert(true);
       })
       .catch((error) => {
-        alert("1");
+        alert("Error data to create a product");
       });
   };
 
@@ -69,7 +67,7 @@ const AddProduct = () => {
         rowSpacing={3}
       >
         <Grid item md={12}>
-          <Typography sx={{ pb: 2, pt: 5 }} variant="h4">
+          <Typography sx={{ pb: 2, pt: 5 }} variant="h5">
             Agregar producto
           </Typography>
         </Grid>

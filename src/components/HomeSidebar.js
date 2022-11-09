@@ -1,14 +1,26 @@
 import { Grid, Typography, Button, styled, Box } from "@mui/material"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { filterBrandProducts } from "../state/products";
 import { filterPriceProducts } from "../state/products";
 import axios from "axios";
 
+
+
 const HomeSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [brands,setBrands] = useState('')
+
+  useEffect(() => {
+    axios
+      .get("/api/products")
+      .then((res) => setBrands(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const StyledButton = styled(Button)({
     textTransform: "none",
@@ -17,6 +29,8 @@ const HomeSidebar = () => {
     height: "30px",
     width: '70%'
   });
+
+
 
   const handleFilter = (event) => {
     event.preventDefault();
