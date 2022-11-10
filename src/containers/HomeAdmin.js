@@ -1,6 +1,7 @@
 import { Grid, Typography, Button } from "@mui/material";
 import { Routes, Route, useNavigate } from "react-router";
 import AdminSidebar from "../components/AdminSidebar";
+import AdminOrders from "../components/AdminOrders";
 import AdminProducts from "../components/AdminProducts";
 import AdminUsers from "../components/AdminUsers";
 import AdminBrands from "../components/AdminBrands";
@@ -31,7 +32,7 @@ const HomeAdmin = () => {
             <Route path="/products" element={<AdminProducts />} />
             <Route path="/products/new" element={<AddProduct />} />
             <Route path="/products/edit/:id" element={<UpdateProduct />} />
-            <Route path="/orders" element={<h1>Orders history</h1>} />
+            <Route path="/orders" element={<AdminOrders />} />
             <Route path="/users" element={<AdminUsers />} />
             <Route path="/brands" element={<AdminBrands />}/>
           </Routes>
