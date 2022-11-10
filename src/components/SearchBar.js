@@ -37,12 +37,12 @@ const SearchBar = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{width:'30%'}}>
         <SearchBox>
           <TextField
             id="full-width-text-field"
             onChange={handleSearch}
-            placeholder="Buscá tu celular..."
+            placeholder="Buscá tu próximo celular..."
             size="small"
             variant="outlined"
             sx={{

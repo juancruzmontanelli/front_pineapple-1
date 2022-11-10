@@ -48,9 +48,7 @@ const Navbar = () => {
                 />
               </Link>
             </Box>
-            <Box>
-              <SearchBar />
-            </Box>
+            <SearchBar />
             {user.id ? (
               <MenuUser />
             ) : (

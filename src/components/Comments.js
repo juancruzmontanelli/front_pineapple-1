@@ -185,7 +185,7 @@ const Comments = ({ product }) => {
             marginBottom="50px"
           >
             <Typography variant="h5">
-              Este producto aún no tiene valoraciones
+              ¡Sé el primero en valorar este producto!
             </Typography>
           </Grid>
         )}

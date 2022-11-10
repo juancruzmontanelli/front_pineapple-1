@@ -31,6 +31,12 @@ const MenuUser = () => {
     setAnchorElUser(null);
     navigate("/account/settings");
   };
+
+  const handleCloseOrders = () => {
+    setAnchorElUser(null);
+    navigate("/account/orders");
+  };
+
   const handleCloseAdmin = () => {
     setAnchorElUser(null);
     navigate("/admin");
@@ -99,7 +105,7 @@ const MenuUser = () => {
   } else {
     return (
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="open settings">
+        <Tooltip>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar>{user.name.slice(0, 1)}</Avatar>
           </IconButton>
@@ -129,6 +135,9 @@ const MenuUser = () => {
         >
           <MenuItem onClick={handleCloseProfile}>
             <Typography>Perfil</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseOrders}>
+            <Typography>Mis compras</Typography>
           </MenuItem>
           <MenuItem onClick={handleCloseLogOut}>
             <Typography>Cerrar sesión</Typography>
