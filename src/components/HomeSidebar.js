@@ -1,4 +1,4 @@
-import { Grid, Typography, Button, styled, Box } from "@mui/material"
+import { Grid, Typography, Button, styled, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -6,12 +6,10 @@ import { filterBrandProducts } from "../state/products";
 import { filterPriceProducts } from "../state/products";
 import axios from "axios";
 
-
-
 const HomeSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [brands,setBrands] = useState('')
+  const [brands, setBrands] = useState("");
 
   useEffect(() => {
     axios
@@ -27,33 +25,19 @@ const HomeSidebar = () => {
     color: "black",
     justifyContent: "left",
     height: "30px",
-    width: '70%'
+    width: "70%",
   });
-
-
 
   const handleFilter = (event) => {
     event.preventDefault();
-
-    axios
-      .get(`/api/search/filter?model=${event.target.value}`)
-      .then((res) => dispatch(filterBrandProducts(res.data)))
-      .then(() => navigate(`/search/brand`))
-      .catch((err) => {
-        console.log(err);
-      });
+    navigate(`/search/brand?model=${event.target.value}`);
   };
 
   const handlePrice = (event) => {
     event.preventDefault();
-
-    axios
-      .get(`/api/search/filter?min=${event.target.value}&max=${event.target.name}`)
-      .then((res) => dispatch(filterPriceProducts(res.data)))
-      .then(() => navigate(`/search/price`))
-      .catch((err) => {
-        console.log(err);
-      });
+    navigate(
+      `/search/price?min=${event.target.value}&max=${event.target.name}`
+    );
   };
 
   return (
@@ -77,52 +61,31 @@ const HomeSidebar = () => {
         alignContent="left"
       >
         <FilterType>Marcas</FilterType>
-        <StyledButton
-          value="Apple"
-          onClick={handleFilter}
-        >
+        <StyledButton value="Apple" onClick={handleFilter}>
           Apple
         </StyledButton>
 
-        <StyledButton
-          value="Samsung"
-          onClick={handleFilter}
-        >
+        <StyledButton value="Samsung" onClick={handleFilter}>
           Samsung
         </StyledButton>
 
-        <StyledButton
-          value="Xiaomi"
-          onClick={handleFilter}
-        >
+        <StyledButton value="Xiaomi" onClick={handleFilter}>
           Xiaomi
         </StyledButton>
 
-        <StyledButton
-          value="OnePlus"
-          onClick={handleFilter}
-        >
+        <StyledButton value="OnePlus" onClick={handleFilter}>
           OnePlus
         </StyledButton>
 
-        <StyledButton
-          value="Realme"
-          onClick={handleFilter}
-        >
+        <StyledButton value="Realme" onClick={handleFilter}>
           Realme
         </StyledButton>
 
-        <StyledButton
-          value="LG"
-          onClick={handleFilter}
-        >
+        <StyledButton value="LG" onClick={handleFilter}>
           LG
         </StyledButton>
 
-        <StyledButton
-          value="Oppo"
-          onClick={handleFilter}
-        >
+        <StyledButton value="Oppo" onClick={handleFilter}>
           Oppo
         </StyledButton>
       </Box>
@@ -135,27 +98,15 @@ const HomeSidebar = () => {
         alignContent="left"
       >
         <FilterType>Precios</FilterType>
-        <StyledButton
-          value={0}
-          name={300}
-          onClick={handlePrice}
-        >
+        <StyledButton value={0} name={300} onClick={handlePrice}>
           Hasta US$300
         </StyledButton>
 
-        <StyledButton
-          value={301}
-          name={1000}
-          onClick={handlePrice}
-        >
+        <StyledButton value={301} name={1000} onClick={handlePrice}>
           Entre US$300 y US$1000
         </StyledButton>
 
-        <StyledButton
-          value={1001}
-          name={5000}
-          onClick={handlePrice}
-        >
+        <StyledButton value={1001} name={5000} onClick={handlePrice}>
           Más de US$1000
         </StyledButton>
       </Box>
@@ -166,6 +117,5 @@ const HomeSidebar = () => {
 const FilterType = styled(Typography)({
   fontSize: "18px",
 });
-
 
 export default HomeSidebar;
