@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar sx={{ background: "black", mb: "10px" }} position={"static"}>
+      <AppBar sx={{ background: "black"}} position={"static"}>
         <StyledToolBar>
           <>
             <Box display="flex" gap={5}>

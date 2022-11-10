@@ -16,11 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
 import { setCart } from "./state/cart";
+import CarouselComponent from "./components/Carousel";
+import { useMatch } from "react-router-dom";
 
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const isHome = useMatch("/");
+  const isSearch = useMatch("/search/*");
 
   useEffect(() => {
     axios
@@ -41,6 +45,7 @@ function App() {
   return (
     <Box display="flex" flexDirection="column">
       <Navbar />
+        {isHome || isSearch ? (<CarouselComponent />) : (null) }
       <Container flex={1} sx={{ minHeight: "calc(100vh - 301px)" }}>
         <Routes>
           {/* Rutas publicas */}
