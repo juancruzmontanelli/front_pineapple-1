@@ -4,7 +4,6 @@ import { Box } from "@mui/system";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
 import axios from 'axios'
-import { Height } from "@mui/icons-material";
 
 
 
@@ -25,7 +24,7 @@ const ProductItem = ( { data } ) => {
     <Grid xs={3} item component={Link} to={`/product/${data.url}`} style={{ textDecoration: "none" }}>
       <Grid>
         <img
-          style={{ width: "50%", Height: "50%" }}
+          style={{ width: "100%" }}
           alt=""
           src={data.img}
         />
