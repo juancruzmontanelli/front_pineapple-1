@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+
 import { Box, styled, TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { searchProducts } from "../state/products";
-import axios from "axios";
-import { useNavigate } from "react-router";
 
 const SearchBox = styled(Box)({
   display: "flex",
@@ -15,7 +13,6 @@ const SearchBox = styled(Box)({
 const SearchBar = () => {
   const [searchedValue, setSearchedValue] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSearch = (e) => {
     setSearchedValue(e.target.value.toLowerCase());
@@ -23,9 +20,8 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const str = searchedValue;
+    navigate(`search/products?str=${searchedValue}`);
     setSearchedValue("");
-    navigate(`search/products?str=${str}`);
   };
 
   return (
@@ -39,6 +35,7 @@ const SearchBar = () => {
             placeholder="Buscá tu próximo celular..."
             size="small"
             variant="outlined"
+            autoComplete="off"
             sx={{
               backgroundColor: "white",
               borderRadius: "16px",
