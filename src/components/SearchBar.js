@@ -7,8 +7,6 @@ import { searchProducts } from "../state/products";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-
-
 const SearchBox = styled(Box)({
   display: "flex",
   width: "100%",
@@ -25,22 +23,18 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios
-      .get(`/api/search?str=${searchedValue}`)
-      .then((res) => dispatch(searchProducts(res.data)))
-      .then(() => navigate("/search/products"))
-      .catch((err) => {
-        console.log(err);
-      });
+    const str = searchedValue;
+    setSearchedValue("");
+    navigate(`search/products?str=${str}`);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={{width:'30%'}}>
+      <form onSubmit={handleSubmit} style={{ width: "30%" }}>
         <SearchBox>
           <TextField
             id="full-width-text-field"
+            value={searchedValue}
             onChange={handleSearch}
             placeholder="Buscá tu próximo celular..."
             size="small"
