@@ -5,9 +5,10 @@ import { Grid } from "@mui/material";
 
 const OrderList = () => {
     const products = useSelector((state) => state.products);
+    
   return (
     <Grid xs={12} item>
-      {products.map((product) => (
+      {products.products.map((product) => (
         <OrderListItem data={product} key={product.id} />
       ))}
     </Grid>
