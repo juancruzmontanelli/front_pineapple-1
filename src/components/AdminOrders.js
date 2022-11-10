@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
-  Button,
   Paper,
   Typography,
   Table,
@@ -11,27 +10,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import AlertsAdminDelete from "./AlertsAdminDelete";
-import { useNavigate } from "react-router";
+import AdminMenuOrders from './AdminMenuOrders'
+import axios from 'axios'
 
 const AdminOrders = () => {
 
-  const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/api/products")
-      .then((res) => dispatch(setProducts(res.data)))
+      .get(`/api/cart/history`)
+      .then((res) => {
+       setOrders(res.data);
+      })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  const handleEdit = (e) => {
-    e.preventDefault();
-    navigate(`edit/${e.target.value}`);
-  };
 
   return (
     <Grid
@@ -50,34 +45,29 @@ const AdminOrders = () => {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Producto</TableCell>
-                <TableCell align="right">Eliminar</TableCell>
+              <TableCell align="left">ID de usuario</TableCell>
+                <TableCell align="left">Producto</TableCell>
+                <TableCell align="left">Cantidad</TableCell>
+                <TableCell align="left">Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((product) => (
+              {orders.map((order) => (
                 <TableRow
-                  key={product.id}
+              
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {product.name}
+                  {order.orderItems[0].userId}
                   </TableCell>
-                  <TableCell align="right">
-                    <Button
-                      value={product.url}
-                      onClick={handleEdit}
-                      size="small"
-                      variant="contained"
-                      startIcon={<EditIcon />}
-                    >
-                      Editar
-                    </Button>
+                  <TableCell component="th" scope="row">
+                  {order.orderItems[0].product.name}
                   </TableCell>
-                  <TableCell align="right">
-                    <AlertsAdminDelete url={product.url} />
+                  <TableCell component="th" scope="row">
+                  {order.orderItems[0].quantity}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                  <AdminMenuOrders stat={order.status} id={order.id}/> 
                   </TableCell>
                 </TableRow>
               ))}
