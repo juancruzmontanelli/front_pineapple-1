@@ -1,131 +1,297 @@
-// import * as React from 'react';
-// import { useTheme } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import MobileStepper from '@mui/material/MobileStepper';
-// import Paper from '@mui/material/Paper';
-// import Typography from '@mui/material/Typography';
-// import Button from '@mui/material/Button';
-// import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-// import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-// import SwipeableViews from 'react-swipeable-views';
-// import { autoPlay } from 'react-swipeable-views-utils';
+import { Box } from "@mui/material";
+import React from "react";
+import Carousel from "react-material-ui-carousel";
+import ProductItem from "../commons/ProductItem";
+import ItemCarousel from "./ItemCarousel";
 
-// const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+function CarouselComponent() {
+  var items = [
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4086 mAh, un tamaño de la pantalla de 6.67 pulgadas, una resolucion de 1444 x 3120, un procesador de 8, una ram de 12000, un almacenamineto interno de 256 MB, una camara Rear de 48, una camara frontal de 16, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 0,
+    "url": "OnePlus_7T_Pro_McLaren_Edition",
+    "name": "OnePlus 7T Pro McLaren Edition",
+    "img": "https://inversionesczhn.com/wp-content/uploads/2020/10/OnePlus-7T-Pro-5G-McLaren-2-550x550-1-1.jpg",
+    "brand": "OnePlus",
+    "model": "7T Pro McLaren Edition",
+    "batteryCapacity": 4086,
+    "screenSize": 6.67,
+    "resolutionX": 1444,
+    "resolutionY": 3120,
+    "processor": 8,
+    "ram": 12000,
+    "internalStorage": 256,
+    "rearCamera": 48,
+    "frontCamera": 16,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 711.85,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 3765 mAh, un tamaño de la pantalla de 6.5 pulgadas, una resolucion de 1080 x 2340, un procesador de 8, una ram de 6000, un almacenamineto interno de 64 MB, una camara Rear de 16, una camara frontal de 16, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 10,
+    "url": "Oppo_K3",
+    "name": "Oppo K3",
+    "img": "https://vlebazaar.in/image/cache/catalog//B07HGLBZ9J/OPPO-K3-Aurora-Blue-8GB-RAM-AMOLED-Display-128GB-Storage-3765mAH-Battery-B07HGLBZ9J-550x550.jpg",
+    "brand": "Oppo",
+    "model": "K3",
+    "batteryCapacity": 3765,
+    "screenSize": 6.5,
+    "resolutionX": 1080,
+    "resolutionY": 2340,
+    "processor": 8,
+    "ram": 6000,
+    "internalStorage": 64,
+    "rearCamera": 16,
+    "frontCamera": 16,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 289.45,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 3969 mAh, un tamaño de la pantalla de 6.5 pulgadas, una resolucion de 1242 x 2688, un procesador de 6, una ram de 4000, un almacenamineto interno de 64 MB, una camara Rear de 12, una camara frontal de 12, un sistema operativo de iOS y un numero de tarjetas Sims de 2",
+    "id": 2,
+    "url": "Apple_iPhone_11_Pro_Max",
+    "name": "Apple iPhone 11 Pro Max",
+    "img": "https://alrossio.pt/image/cache/Ravinder/CAPA/samsung/Premium%20Silicone%20Case/hhdbchb-550x550.jpg",
+    "brand": "Apple",
+    "model": "iPhone 11 Pro Max",
+    "batteryCapacity": 3969,
+    "screenSize": 6.5,
+    "resolutionX": 1242,
+    "resolutionY": 2688,
+    "processor": 6,
+    "ram": 4000,
+    "internalStorage": 64,
+    "rearCamera": 12,
+    "frontCamera": 12,
+    "operatingSystem": "iOS",
+    "numberOfSims": 2,
+    "price": 1289.82,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 3800 mAh, un tamaño de la pantalla de 6.55 pulgadas, una resolucion de 1080 x 2400, un procesador de 8, una ram de 8000, un almacenamineto interno de 128 MB, una camara Rear de 48, una camara frontal de 16, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 5,
+    "url": "OnePlus_7T",
+    "name": "OnePlus 7T",
+    "img": "https://www.cellspare.com/image/cache/data/One%20Plus/Housing/Door/OnePlus-7T-rear-housing-panel-battery-door-blue-550x550.jpg",
+    "brand": "OnePlus",
+    "model": "7T",
+    "batteryCapacity": 3800,
+    "screenSize": 6.55,
+    "resolutionX": 1080,
+    "resolutionY": 2400,
+    "processor": 8,
+    "ram": 8000,
+    "internalStorage": 128,
+    "rearCamera": 48,
+    "frontCamera": 16,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 421.45,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 6000 mAh, un tamaño de la pantalla de 6.59 pulgadas, una resolucion de 1080 x 2340, un procesador de 8, una ram de 8000, un almacenamineto interno de 128 MB, una camara Rear de 48, una camara frontal de 24, un sistema operativo de Android y un numero de tarjetas Sims de 1",
+    "id": 8,
+    "url": "Asus_ROG_Phone_2",
+    "name": "Asus ROG Phone 2",
+    "img": "https://www.cellspare.com/image/cache/data/Asus/Housing/Door/rog-phone-2-rear-housing-module-black-550x550.jpg",
+    "brand": "Asus",
+    "model": "ROG Phone 2",
+    "batteryCapacity": 6000,
+    "screenSize": 6.59,
+    "resolutionX": 1080,
+    "resolutionY": 2340,
+    "processor": 8,
+    "ram": 8000,
+    "internalStorage": 128,
+    "rearCamera": 48,
+    "frontCamera": 24,
+    "operatingSystem": "Android",
+    "numberOfSims": 1,
+    "price": 458.48,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4085 mAh, un tamaño de la pantalla de 6.67 pulgadas, una resolucion de 1440 x 3120, un procesador de 8, una ram de 8000, un almacenamineto interno de 256 MB, una camara Rear de 48, una camara frontal de 16, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 6,
+    "url": "OnePlus_7T_Pro",
+    "name": "OnePlus 7T Pro",
+    "img": "https://inversionesczhn.com/wp-content/uploads/2020/10/OnePlus-7T-Pro-5G-McLaren-2-550x550-1-1.jpg",
+    "brand": "OnePlus",
+    "model": "7T Pro",
+    "batteryCapacity": 4085,
+    "screenSize": 6.67,
+    "resolutionX": 1440,
+    "resolutionY": 3120,
+    "processor": 8,
+    "ram": 8000,
+    "internalStorage": 256,
+    "rearCamera": 48,
+    "frontCamera": 16,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 639.36,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4000 mAh, un tamaño de la pantalla de 6.4 pulgadas, una resolucion de 1080 x 2340, un procesador de 8, una ram de 6000, un almacenamineto interno de 128 MB, una camara Rear de 12, una camara frontal de 32, un sistema operativo de Android y un numero de tarjetas Sims de 1",
+    "id": 4,
+    "url": "LG_G8X_ThinQ",
+    "name": "LG G8X ThinQ",
+    "img": "http://wmstatic.global.ssl.fastly.net/ml/050220-f-797781b7-0a8b-4aaa-8a5d-043b8008891b.png?width=320&height=320&whitespace=true",
+    "brand": "LG",
+    "model": "G8X ThinQ",
+    "batteryCapacity": 4000,
+    "screenSize": 6.4,
+    "resolutionX": 1080,
+    "resolutionY": 2340,
+    "processor": 8,
+    "ram": 6000,
+    "internalStorage": 128,
+    "rearCamera": 12,
+    "frontCamera": 32,
+    "operatingSystem": "Android",
+    "numberOfSims": 1,
+    "price": 603.16,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4086 mAh, un tamaño de la pantalla de 6.5 pulgadas, una resolucion de 1080 x 2400, un procesador de 8, una ram de 6000, un almacenamineto interno de 64 MB, una camara Rear de 64, una camara frontal de 16, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 1,
+    "url": "Realme_X2_Pro",
+    "name": "Realme X2 Pro",
+    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3djB_sPBQVPpbWt9y5ojN3_8JogwNk84CIw&usqp=CAU",
+    "brand": "Realme",
+    "model": "X2 Pro",
+    "batteryCapacity": 4086,
+    "screenSize": 6.5,
+    "resolutionX": 1080,
+    "resolutionY": 2400,
+    "processor": 8,
+    "ram": 6000,
+    "internalStorage": 64,
+    "rearCamera": 64,
+    "frontCamera": 16,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 337.83,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 3110 mAh, un tamaño de la pantalla de 6.1 pulgadas, una resolucion de 828 x 1792, un procesador de 6, una ram de 4000, un almacenamineto interno de 64 MB, una camara Rear de 12, una camara frontal de 12, un sistema operativo de iOS y un numero de tarjetas Sims de 2",
+    "id": 3,
+    "url": "Apple_iPhone_11",
+    "name": "Apple iPhone 11",
+    "img": "https://cellularcenter.com.uy/cache/cellularcenter/products/IPH1164GWH-1-550x550.jpg",
+    "brand": "Apple",
+    "model": "iPhone 11",
+    "batteryCapacity": 3110,
+    "screenSize": 6.1,
+    "resolutionX": 828,
+    "resolutionY": 1792,
+    "processor": 6,
+    "ram": 4000,
+    "internalStorage": 64,
+    "rearCamera": 12,
+    "frontCamera": 12,
+    "operatingSystem": "iOS",
+    "numberOfSims": 2,
+    "price": 758.93,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4000 mAh, un tamaño de la pantalla de 6.39 pulgadas, una resolucion de 1080 x 2340, un procesador de 8, una ram de 6000, un almacenamineto interno de 128 MB, una camara Rear de 48, una camara frontal de 20, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 9,
+    "url": "Xiaomi_Redmi_K20_Pro",
+    "name": "Xiaomi Redmi K20 Pro",
+    "img": "https://www.cellspare.com/image/cache/data/Xiaomi/Housing/Door/2019/xiaomi-redmi-k20-pro-rear-housing-panel-battery-door-white-550x550.jpg",
+    "brand": "Xiaomi",
+    "model": "Redmi K20 Pro",
+    "batteryCapacity": 4000,
+    "screenSize": 6.39,
+    "resolutionX": 1080,
+    "resolutionY": 2340,
+    "processor": 8,
+    "ram": 6000,
+    "internalStorage": 128,
+    "rearCamera": 48,
+    "frontCamera": 20,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 279.8,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    },
+    {
+    "description": "Este dispositivo cuenta con una capacidad de bateria de 4300 mAh, un tamaño de la pantalla de 6.8 pulgadas, una resolucion de 1440 x 3040, un procesador de 8, una ram de 12000, un almacenamineto interno de 256 MB, una camara Rear de 12, una camara frontal de 10, un sistema operativo de Android y un numero de tarjetas Sims de 2",
+    "id": 7,
+    "url": "Samsung_Galaxy_Note_10",
+    "name": "Samsung Galaxy Note 10+",
+    "img": "https://http2.mlstatic.com/D_NQ_NP_829334-MLA52256198609_112022-V.jpg",
+    "brand": "Samsung",
+    "model": "Galaxy Note 10+",
+    "batteryCapacity": 4300,
+    "screenSize": 6.8,
+    "resolutionX": 1440,
+    "resolutionY": 3040,
+    "processor": 8,
+    "ram": 12000,
+    "internalStorage": 256,
+    "rearCamera": 12,
+    "frontCamera": 10,
+    "operatingSystem": "Android",
+    "numberOfSims": 2,
+    "price": 961.62,
+    "createdAt": "2022-11-10T14:50:19.648Z",
+    "updatedAt": "2022-11-10T14:50:19.648Z",
+    "comments": [],
+    "promedio": 0
+    }
+    ]
+  return (
+    <Box sx={{ maxWidth: 800, flexGrow: 1, m: 2 }}>
+      <Carousel>
+        {
+        items.map((item, i) => (
+          <ProductItem key={i} data={item} />
+        ))}
+      </Carousel>
+    </Box>
+  );
+}
 
-// const images = [
-//   {
-//     label: 'Las mejores marcas',
-//     imgPath:
-//     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAAzjR0_IoTZO2O2mw9ZGdG4wh3GEvvVqSvqVbh2VbRF_gxREfnb-ywRMKWJSKZSnrB4&usqp=CAU"
-//   },
-//   {
-//     label: 'Tecnología',
-//     imgPath:
-//       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0MuLTXvBEWax4FxdrIyt--a88iq1sL7FuQ&usqp=CAU',
-//   },
-//   {
-//     label: 'Servicio 24hs',
-//     imgPath:
-//       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwzUM_gn-LNRv2Ev7FrAow9EapfmCltFqDpA&usqp=CAU',
-//   },
-//   {
-//     label: 'Especialización',
-//     imgPath:
-//       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR80ZV4ZEFLjgw4FbaIx8YFEVICOSR4Y0FO6Q&usqp=CAU',
-//   },
-// ];
-
-// function SwipeableTextMobileStepper() {
-//   const theme = useTheme();
-//   const [activeStep, setActiveStep] = React.useState(0);
-//   const maxSteps = images.length;
-
-//   const handleNext = () => {
-//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-//   };
-
-//   const handleBack = () => {
-//     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-//   };
-
-//   const handleStepChange = (step) => {
-//     setActiveStep(step);
-//   };
-
-//   return (
-//     <Box sx={{ maxWidth: 800, flexGrow: 1 }}>
-//       <Paper
-//         square
-//         elevation={0}
-//         sx={{
-//           display: 'flex',
-//           alignItems: 'center',
-//           height: 100,
-//           pl: 2,
-//           bgcolor: '#ed7203',
-//           margin: 1,
-//           justifyContent:"center"
-        
-//         }}
-//       >
-//         <Typography variant="h4" fontWeight="bold" textTransform="uppercase" textAlign="center" >{images[activeStep].label}</Typography>
-//       </Paper>
-//       <AutoPlaySwipeableViews
-//         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-//         index={activeStep}
-//         onChangeIndex={handleStepChange}
-//         enableMouseEvents
-//       >
-//         {images.map((step, index) => (
-//           <div key={step.label}>
-//             {Math.abs(activeStep - index) <= 2 ? (
-//               <Box
-//                 component="img"
-//                 sx={{
-//                   height: 255,
-//                   display: 'block',
-//                   maxWidth: 800,
-//                   overflow: 'hidden',
-//                   width: '100%',
-//                 }}
-//                 src={step.imgPath}
-//                 alt={step.label}
-//               />
-//             ) : null}
-//           </div>
-//         ))}
-//       </AutoPlaySwipeableViews>
-//       <MobileStepper
-//         steps={maxSteps}
-//         position="static"
-//         activeStep={activeStep}
-//         nextButton={
-//           <Button
-//             size="small"
-//             onClick={handleNext}
-//             disabled={activeStep === maxSteps - 1}
-//           >
-//             Next
-//             {theme.direction === 'rtl' ? (
-//               <KeyboardArrowLeft />
-//             ) : (
-//               <KeyboardArrowRight />
-//             )}
-//           </Button>
-//         }
-//         backButton={
-//           <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-//             {theme.direction === 'rtl' ? (
-//               <KeyboardArrowRight />
-//             ) : (
-//               <KeyboardArrowLeft />
-//             )}
-//             Back
-//           </Button>
-//         }
-//       />
-//     </Box>
-//   );
-// }
-
-// export default SwipeableTextMobileStepper;
+export default CarouselComponent;
