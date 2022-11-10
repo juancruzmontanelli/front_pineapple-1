@@ -11,11 +11,14 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Comments = ({ product }) => {
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(0);
   const [commit, setCommit] = useState(); //comentario posteado
   const [comments, setComments] = useState({ comments: [] }); // comentarios recibidos
+  const [newComment, setNewComment] = useState({});
   const user = useSelector((state) => state.user);
-
+  const userCommented = comments.comments.find(
+    (comment) => comment.userId === user.id
+  );
   useEffect(() => {
     axios
       .get(`/api/comment/${product.url}`)
@@ -23,30 +26,29 @@ const Comments = ({ product }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [product.url]);
+  }, [product.url, newComment]);
 
   const handleComment = (e) => {
     setCommit(e.target.value);
   };
 
   const handleRating = (e) => {
-    setRating(e.target.value);
+    setRating(Number(e.target.value));
   };
-  
+
   //falta sumar el userId y el productId al post
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`/api/comment/${product.url}`, { rating, commit })
-      .then((userRating) => setCommit(userRating.data))
+      .then((userRating) => setNewComment(userRating.data))
       .catch((err) => console.log(err));
   };
-
 
   return (
     <>
       <Grid container display={"flex"}>
-        {user.loggedIn && (
+        {user.loggedIn && !userCommented && (
           <Grid item xs={12}>
             <Box
               component="form"
@@ -118,7 +120,9 @@ const Comments = ({ product }) => {
                   alignItems={"center"}
                 >
                   <Typography variant="h4">
-                    {Number(comments.promedio) > 0 ? Number(comments.promedio) : ""}
+                    {Number(comments.promedio) > 0
+                      ? Number(comments.promedio)
+                      : ""}
                   </Typography>
 
                   <Rating
@@ -162,10 +166,7 @@ const Comments = ({ product }) => {
                       <Typography key={comment.id}>
                         <strong>{comment.name}</strong>
                       </Typography>
-                      <Typography
-                        align={"justify"}
-                        justifyContent="center"
-                      >
+                      <Typography align={"justify"} justifyContent="center">
                         {comment.commit}
                       </Typography>
                     </Box>

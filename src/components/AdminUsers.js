@@ -18,7 +18,8 @@ import { useSelector } from "react-redux";
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const user = useSelector((state) => state.user);
- 
+  const [modified, setModified] = useState({});
+
   useEffect(() => {
     axios
       .get("/api/user/all")
@@ -26,7 +27,7 @@ const AdminUsers = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [modified]);
 
   if (user.SuperAdmin) {
     return (
@@ -65,10 +66,17 @@ const AdminUsers = () => {
                     <TableCell align="right">{user.address}</TableCell>
                     <TableCell align="right">{user.email}</TableCell>
                     <TableCell align="right">
-                      <AlertConvertAdmin id={user.id} isAdmin={user.isAdmin}/>
+                      <AlertConvertAdmin
+                        id={user.id}
+                        isAdmin={user.isAdmin}
+                        setModified={setModified}
+                      />
                     </TableCell>
                     <TableCell align="right">
-                      <AlertsAdminDelete id={user.id} />
+                      <AlertsAdminDelete
+                        id={user.id}
+                        setModified={setModified}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}

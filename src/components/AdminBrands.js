@@ -9,12 +9,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import AlertsAdminDelete from "./AlertsAdminDelete";
-import axios from 'axios'
+import axios from "axios";
 import { useNavigate } from "react-router";
 
 const AdminBrands = () => {
-
   const [brands, setBrands] = useState([]);
+  const [modified, setModified] = useState({});
 
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const AdminBrands = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [modified]);
 
   return (
     <Grid
@@ -75,7 +75,10 @@ const AdminBrands = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <AlertsAdminDelete name={brand.name}/>
+                    <AlertsAdminDelete
+                      name={brand.name}
+                      setModified={setModified}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

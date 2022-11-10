@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function AlertsAdminDelete({ id, url, name }) {
+export default function AlertsAdminDelete({ id, url, name, setModified }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -24,7 +24,9 @@ export default function AlertsAdminDelete({ id, url, name }) {
 
     axios
       .delete(`/api/user/${id}/delete`)
-      .then(() => {})
+      .then((res) => {
+        setModified({ id });
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -37,7 +39,9 @@ export default function AlertsAdminDelete({ id, url, name }) {
 
     axios
       .delete(`/api/products/delete/${url}/`)
-      .then(() => {})
+      .then((res) => {
+        setModified({ id });
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -50,7 +54,9 @@ export default function AlertsAdminDelete({ id, url, name }) {
 
     axios
       .delete(`/api/brand/delete/${name}/`)
-      .then(() => {})
+      .then(() => {
+        setModified({ name });
+      })
       .catch((error) => {
         console.log(error);
       });
