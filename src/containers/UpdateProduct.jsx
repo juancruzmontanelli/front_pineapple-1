@@ -28,7 +28,7 @@ const UpdateProduct = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,8 +56,8 @@ const UpdateProduct = () => {
       )}
       <Grid
         container
-        spacing={-2}
-        style={{ width: "100%", BorderStyle: "dashed", borderColor: "black" }}
+        
+        sx={{ width: "100%", BorderStyle: "dashed", borderColor: "black", mt:'30px', ml:'15%' }}
       >
         <Grid
           item
@@ -66,7 +66,7 @@ const UpdateProduct = () => {
           justifyContent="space-between"
           xs={ 6 } 
         >
-           <Typography variant="h6" fontWeight="bold" textTransform="uppercase" textAlign="left" >Producto seleccionado</Typography>
+           <Typography sx={{mb:'6%'}} variant="h6">Producto seleccionado</Typography>
           <Grid item xs={6}>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
               <OutlinedInput
@@ -305,7 +305,7 @@ const UpdateProduct = () => {
         </Grid>
 
         <Grid item display="flex" flexDirection="column" xs={ 6 }>
-        <Typography variant="h6" fontWeight="bold" textTransform="uppercase" textAlign="left" >Cambios</Typography>
+        <Typography sx={{mb:'7%'}} variant="h6" textAlign="left" >Cambios</Typography>
           <Grid item xs={6}>
             <TextField
               id="img"

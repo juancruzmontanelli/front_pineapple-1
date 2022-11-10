@@ -42,14 +42,6 @@ const OrderListItem = ({ data }) => {
         <Typography variant="caption" sx={{ pl: "5px" }}>
           1 unidad
         </Typography>
-        <Button
-          size="small"
-          variant="text"
-          color="error"
-          sx={{ alignSelf: "flex-start" }}
-        >
-          Eliminar del historial
-        </Button>
       </CardContent>
       <Box
         sx={{
