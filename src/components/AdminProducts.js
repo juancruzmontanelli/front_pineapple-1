@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Button,
@@ -13,12 +13,23 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AlertsAdminDelete from "./AlertsAdminDelete";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const AdminProducts = () => {
-  const products = useSelector((state) => state.products.products);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  const [modified, setModified] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/api/products/")
+      .then((res) => setProducts(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [modified]);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -68,7 +79,10 @@ const AdminProducts = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <AlertsAdminDelete url={product.url} />
+                    <AlertsAdminDelete
+                      url={product.url}
+                      setModified={setModified}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

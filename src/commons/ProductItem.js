@@ -1,33 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Grid, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
-import axios from 'axios'
 
-
-
-const ProductItem = ( { data } ) => {
-
-  const [rating, setRating] = useState(null)
-
-  useEffect(() => {
-    axios
-      .get(`/api/comment/${data.url}`)
-      .then((res) => setRating(res.data.promedio))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [data.url]);
-
+const ProductItem = ({ data }) => {
   return (
-    <Grid xs={3} item component={Link} to={`/product/${data.url}`} style={{ textDecoration: "none" }}>
+    <Grid
+      xs={3}
+      item
+      component={Link}
+      to={`/product/${data.url}`}
+      style={{ textDecoration: "none" }}
+    >
       <Grid>
-        <img
-          style={{ width: "100%" }}
-          alt=""
-          src={data.img}
-        />
+        <img style={{ width: "100%" }} alt="" src={data.img} />
       </Grid>
       <ItemDescription>
         <Grid>
@@ -35,7 +22,7 @@ const ProductItem = ( { data } ) => {
         </Grid>
         <Rating
           name="read-only"
-          value={Number(rating)}
+          value={Number(data.promedio)}
           size="small"
           sx={{ mt: "4px" }}
           readOnly
@@ -48,7 +35,6 @@ const ProductItem = ( { data } ) => {
     </Grid>
   );
 };
-
 
 const ItemTitle = styled(Typography)({
   fontSize: "16px",
