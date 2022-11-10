@@ -167,6 +167,7 @@ const CartPaymentDetails = ({
               aria-describedby="input-card-name-text"
               value={paymentDetails.cardName}
               onChange={handleName}
+              autoComplete="off"
               startAdornment={
                 <InputAdornment position="start">
                   <Person />

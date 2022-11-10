@@ -1,20 +1,16 @@
 import { Grid, Typography, Button, styled, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { filterBrandProducts } from "../state/products";
-import { filterPriceProducts } from "../state/products";
 import axios from "axios";
 
 const HomeSidebar = () => {
-  const dispatch = useDispatch();
+  const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
-  const [brands, setBrands] = useState("");
 
   useEffect(() => {
     axios
       .get("/api/brand")
-      .then((res) => console.log(res.data))
+      .then((res) => setBrands(res.data))
       .catch((err) => {
         console.log(err);
       });
@@ -61,33 +57,17 @@ const HomeSidebar = () => {
         alignContent="left"
       >
         <FilterType>Marcas</FilterType>
-        <StyledButton value="Apple" onClick={handleFilter}>
-          Apple
-        </StyledButton>
-
-        <StyledButton value="Samsung" onClick={handleFilter}>
-          Samsung
-        </StyledButton>
-
-        <StyledButton value="Xiaomi" onClick={handleFilter}>
-          Xiaomi
-        </StyledButton>
-
-        <StyledButton value="OnePlus" onClick={handleFilter}>
-          OnePlus
-        </StyledButton>
-
-        <StyledButton value="Realme" onClick={handleFilter}>
-          Realme
-        </StyledButton>
-
-        <StyledButton value="LG" onClick={handleFilter}>
-          LG
-        </StyledButton>
-
-        <StyledButton value="Oppo" onClick={handleFilter}>
-          Oppo
-        </StyledButton>
+        {brands.map((brand) => {
+          return (
+            <StyledButton
+              key={brand.id}
+              value={brand.name}
+              onClick={handleFilter}
+            >
+              {brand.name}
+            </StyledButton>
+          );
+        })}
       </Box>
 
       <Box

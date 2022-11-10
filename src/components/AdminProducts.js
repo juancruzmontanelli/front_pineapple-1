@@ -10,6 +10,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Pagination,
+  Box,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AlertsAdminDelete from "./AlertsAdminDelete";
@@ -19,17 +21,29 @@ import axios from "axios";
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
   const [modified, setModified] = useState({});
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+  const [pagination, setPagination] = useState(initialStatePagination);
 
   useEffect(() => {
     axios
-      .get("/api/products/")
-      .then((res) => setProducts(res.data))
+      .get(`/api/products?page=${pagination.currentPage}`)
+      .then((res) => {
+        setProducts(res.data.products);
+        if (pagination.totalPages === null)
+          setPagination({ ...pagination, totalPages: res.data.totalPages });
+      })
       .catch((err) => {
         console.log(err);
       });
-  }, [modified]);
+  }, [modified, pagination]);
+
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
+  };
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -89,6 +103,20 @@ const AdminProducts = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            pt: "20px",
+            pb: "30px",
+          }}
+        >
+          <Pagination
+            count={pagination.totalPages || 0}
+            page={pagination.currentPage}
+            onChange={handlePagination}
+          />
+        </Box>
       </Grid>
     </Grid>
   );
