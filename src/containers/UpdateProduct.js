@@ -56,17 +56,24 @@ const UpdateProduct = () => {
       )}
       <Grid
         container
-        
-        sx={{ width: "100%", BorderStyle: "dashed", borderColor: "black", mt:'30px', ml:'15%' }}
+        sx={{
+          width: "100%",
+          BorderStyle: "dashed",
+          borderColor: "black",
+          mt: "30px",
+          ml: "15%",
+        }}
       >
         <Grid
           item
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
-          xs={ 6 } 
+          xs={6}
         >
-           <Typography sx={{mb:'6%'}} variant="h6">Producto seleccionado</Typography>
+          <Typography sx={{ mb: "6%" }} variant="h6">
+            Producto seleccionado
+          </Typography>
           <Grid item xs={6}>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
               <OutlinedInput
@@ -181,7 +188,7 @@ const UpdateProduct = () => {
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
               <OutlinedInput
                 id="processor"
-                value={product.img || ""}
+                value={product.processor || ""}
                 aria-describedby="outlined-processor-helper-text"
                 inputProps={{
                   "aria-label": "processor",
@@ -304,8 +311,10 @@ const UpdateProduct = () => {
           </Grid>
         </Grid>
 
-        <Grid item display="flex" flexDirection="column" xs={ 6 }>
-        <Typography sx={{mb:'7%'}} variant="h6" textAlign="left" >Cambios</Typography>
+        <Grid item display="flex" flexDirection="column" xs={6}>
+          <Typography sx={{ mb: "7%" }} variant="h6" textAlign="left">
+            Cambios
+          </Typography>
           <Grid item xs={6}>
             <TextField
               id="img"
