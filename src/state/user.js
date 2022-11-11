@@ -32,6 +32,7 @@ export default createReducer(initialState, {
       email: null,
       id: null,
       isAdmin: null,
+      SuperAdmin: null,
       loggedIn: false,
     };
   },

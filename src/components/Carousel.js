@@ -11,7 +11,7 @@ function CarouselComponent() {
   return (
     <Carousel sx={{ mb: "5%", height: "362px" }}>
       {items.map((item, i) => (
-        <Paper>
+        <Paper key={i}>
           <img src={item} style={{ width: "100%" }} alt=""></img>
         </Paper>
       ))}
