@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   FormControl,
   FormHelperText,
-  Grid,
   Input,
   InputLabel,
-  Typography
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { Box } from "@mui/system";
+import { isEmail, isValidPassword } from "../utils/validation";
 
 const CreateUser = () => {
   const [name, setName] = useState("");
@@ -18,6 +20,7 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [isValidPass, setIsValidPass] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [backError, setBackError] = useState([]);
 
   const navigate = useNavigate();
 
@@ -35,7 +38,7 @@ const CreateUser = () => {
           navigate("/createSuccess");
         })
         .catch((error) => {
-          alert('Revise los datos ingresados');
+          setBackError(error.response.data.errors);
         })
     ) : (
       <FormHelperText error>Datos incorrectos</FormHelperText>
@@ -50,32 +53,34 @@ const CreateUser = () => {
   const handleEmail = (e) => {
     let emailInput = e.target.value;
     setEmail(emailInput);
-    const regex =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
+    isEmail(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
   };
 
   const handlePass = (e) => {
     let passInput = e.target.value;
     setPass(passInput);
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
-    regex.test(passInput) ? setIsValidPass(true) : setIsValidPass(false);
+    isValidPassword(passInput) ? setIsValidPass(true) : setIsValidPass(false);
   };
 
   return (
-    <Grid
-      container
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      rowSpacing={3}
-    >
-      <Grid item md={12}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          width: "400px",
+          gap: "15px",
+        }}
+      >
         <Typography sx={{ pb: 2, pt: 5 }} variant="h4">
           Crear cuenta
         </Typography>
+        {backError.length > 0 && (
+          <Box>
+            <Alert severity="error">{backError[0].msg}</Alert>
+          </Box>
+        )}
         <FormControl>
           <InputLabel htmlFor="name">Nombre</InputLabel>
           <Input
@@ -85,10 +90,11 @@ const CreateUser = () => {
             aria-describedby="name-helper"
             onChange={handleName}
           />
-          <FormHelperText id="name-helper">Elegí cómo querés que te llamemos.</FormHelperText>
+          <FormHelperText id="name-helper">
+            Elegí cómo querés que te llamemos.
+          </FormHelperText>
         </FormControl>
-      </Grid>
-      <Grid item md={12}>
+
         <FormControl>
           <InputLabel htmlFor="address">Domicilio</InputLabel>
           <Input
@@ -98,10 +104,11 @@ const CreateUser = () => {
             aria-describedby="address-helper"
             onChange={handleAddress}
           />
-          <FormHelperText id="address-helper">Configurá el envío de tus compras</FormHelperText>
+          <FormHelperText id="address-helper">
+            Configurá el envío de tus compras
+          </FormHelperText>
         </FormControl>
-      </Grid>
-      <Grid item md={12}>
+
         <FormControl>
           <InputLabel htmlFor="name">Email</InputLabel>
           <Input
@@ -119,8 +126,7 @@ const CreateUser = () => {
             </FormHelperText>
           )}
         </FormControl>
-      </Grid>
-      <Grid item md={12}>
+
         <FormControl>
           <InputLabel htmlFor="password">Contraseña</InputLabel>
           <Input
@@ -141,9 +147,7 @@ const CreateUser = () => {
             </FormHelperText>
           )}
         </FormControl>
-      </Grid>
 
-      <Grid item md={12}>
         <Button
           onClick={handleSubmit}
           variant="contained"
@@ -163,8 +167,8 @@ const CreateUser = () => {
         >
           Continuar
         </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

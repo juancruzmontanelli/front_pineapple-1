@@ -9,7 +9,7 @@ function CarouselComponent() {
   var items = [BannerUno, BannerDos, BannerTres];
 
   return (
-    <Carousel sx={{ mb: "5%" }}>
+    <Carousel sx={{ mb: "5%", height: "362px" }}>
       {items.map((item, i) => (
         <ItemCarousel key={i} item={item} />
       ))}
