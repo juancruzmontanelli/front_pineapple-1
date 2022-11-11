@@ -21,7 +21,8 @@ const ProductItem = ({ data }) => {
           <ItemTitle>{data.name}</ItemTitle>
         </Grid>
         <Rating
-          name="read-only"
+          name="half-rating-read"
+          precision={0.5}
           value={Number(data.promedio)}
           size="small"
           sx={{ mt: "4px" }}
