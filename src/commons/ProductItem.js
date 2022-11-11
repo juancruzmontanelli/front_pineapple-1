@@ -11,10 +11,10 @@ const ProductItem = ({ data }) => {
       item
       component={Link}
       to={`/product/${data.url}`}
-      style={{ textDecoration: "none" }}
+      style={{ textDecoration: "none", color: "#000" }}
     >
-      <Grid>
-        <img style={{ width: "100%" }} alt="" src={data.img} />
+      <Grid sx={{ display: "flex", justifyContent: "center" }}>
+        <img style={{ height: "200px" }} alt="" src={data.img} />
       </Grid>
       <ItemDescription>
         <Grid>
@@ -39,6 +39,7 @@ const ProductItem = ({ data }) => {
 
 const ItemTitle = styled(Typography)({
   fontSize: "16px",
+  fontWeight: "bold",
 });
 
 const ItemDescription = styled(Box)({
@@ -47,7 +48,7 @@ const ItemDescription = styled(Box)({
 });
 
 const ItemPrice = styled(Typography)({
-  fontSize: "18px",
+  fontSize: "17px",
 });
 
 export default ProductItem;

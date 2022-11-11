@@ -9,7 +9,7 @@ function CarouselComponent() {
   var items = [BannerUno, BannerDos, BannerTres];
 
   return (
-    <Carousel animation='fade' sx={{ mb: "5%" }}>
+    <Carousel sx={{ mb: "5%", height: "362px" }}>
       {items.map((item, i) => (
         <Paper>
           <img src={item} style={{ width: "100%" }} alt=""></img>

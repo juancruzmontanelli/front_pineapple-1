@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {
+  Alert,
+  Box,
   Button,
   FormControl,
   FormHelperText,
-  Grid,
   Input,
   InputLabel,
   Typography,
@@ -13,6 +14,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/user";
 import { mergeCart } from "../state/cart";
+import { isEmail, isValidPassword } from "../utils/validation";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [isValidPass, setIsValidPass] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [backError, setBackError] = useState([]);
 
   const navigate = useNavigate();
 
@@ -37,7 +40,11 @@ const Login = () => {
           navigate("/");
         })
         .catch((error) => {
-          alert("Revise los datos ingresados");
+          console.log(error);
+          if (error.response.status === 401)
+            return setBackError([{ msg: "Email o contraseña inválidos" }]);
+
+          setBackError(error.response.data.errors);
         })
     ) : (
       <FormHelperText error>Datos incorrectos</FormHelperText>
@@ -47,32 +54,34 @@ const Login = () => {
   const handleEmail = (e) => {
     let emailInput = e.target.value;
     setEmail(e.target.value);
-    const regex =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    regex.test(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
+    isEmail(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
   };
 
   const handlePass = (e) => {
     let passInput = e.target.value;
     setPass(passInput);
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
-    regex.test(passInput) ? setIsValidPass(true) : setIsValidPass(false);
+    isValidPassword(passInput) ? setIsValidPass(true) : setIsValidPass(false);
   };
 
   return (
-    <Grid
-      container
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      rowSpacing={3}
-    >
-      <Grid item md={12}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          width: "400px",
+          gap: "15px",
+        }}
+      >
         <Typography sx={{ pb: 2, pt: 5 }} variant="h4">
           Iniciar sesión
         </Typography>
+        {backError.length > 0 && (
+          <Box>
+            <Alert severity="error">{backError[0].msg}</Alert>
+          </Box>
+        )}
         <FormControl>
           <InputLabel htmlFor="name">Email</InputLabel>
           <Input
@@ -90,8 +99,7 @@ const Login = () => {
             </FormHelperText>
           )}
         </FormControl>
-      </Grid>
-      <Grid item md={12}>
+
         <FormControl>
           <InputLabel htmlFor="password">Contraseña</InputLabel>
           <Input
@@ -112,9 +120,7 @@ const Login = () => {
             </FormHelperText>
           )}
         </FormControl>
-      </Grid>
 
-      <Grid item md={12}>
         <Button
           sx={{
             bgcolor: "#ed7203",
@@ -134,8 +140,8 @@ const Login = () => {
         >
           Continuar
         </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 
