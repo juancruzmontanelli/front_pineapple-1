@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@mui/material";
 import AdminMenuOrders from './AdminMenuOrders'
+import AdminMenuProducts from './AdminMenuProducts'
 import axios from 'axios'
 
 const AdminOrders = () => {
@@ -46,8 +47,8 @@ const AdminOrders = () => {
             <TableHead>
               <TableRow>
               <TableCell align="left">ID de usuario</TableCell>
-                <TableCell align="left">Producto</TableCell>
-                <TableCell align="left">Cantidad</TableCell>
+              <TableCell align="left">ID de orden</TableCell>
+                <TableCell align="left">Productos</TableCell>
                 <TableCell align="left">Status</TableCell>
               </TableRow>
             </TableHead>
@@ -61,10 +62,10 @@ const AdminOrders = () => {
                   {order.orderItems[0].userId}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                  {order.orderItems[0].product.name}
+                  {order.id}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                  {order.orderItems[0].quantity}
+                  <AdminMenuProducts products={order.orderItems} />
                   </TableCell>
                   <TableCell component="th" scope="row">
                   <AdminMenuOrders stat={order.status} id={order.id}/> 

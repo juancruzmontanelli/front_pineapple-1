@@ -6,6 +6,7 @@ import axios from "axios";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
+  console.log('orders', orders)
 
   useEffect(() => {
     axios

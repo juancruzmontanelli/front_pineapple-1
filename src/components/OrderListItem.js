@@ -1,29 +1,21 @@
 import {
-  Button,
   Card,
+  Typography,
   CardContent,
   CardMedia,
-  Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import carrito from '../assets/ecommerce.png'
 import React from "react";
-import { useNavigate } from "react-router";
+import AdminMenuProducts from "./AdminMenuProducts";
 
 const OrderListItem = ({ data }) => {
  
-  const navigate = useNavigate()
-
-  const handleOrder = (e) => {
-    e.preventDefault();
-    navigate(`/product/${data.orderItems[0].product.url}`)
-  };
-
-  console.log(data);
   return (
     <Card
       sx={{
         display: "flex",
         alignItems: "center",
+        width:'50%',
         p: "16px",
         mb: "20px",
         backgroundColor: "#fafafa",
@@ -32,8 +24,8 @@ const OrderListItem = ({ data }) => {
       <CardMedia
         sx={{ maxWidth: "100px" }}
         component="img"
-        image={data.orderItems[0].product.img}
-        alt={data.orderItems[0].product.name}
+        image={carrito}
+        alt='carrito'
       />
       <CardContent
         sx={{
@@ -42,44 +34,17 @@ const OrderListItem = ({ data }) => {
           flexDirection: "column",
         }}
       >
-        <Typography variant="h6" component="p" sx={{ pl: "5px" }}>
-          {data.orderItems[0].product.name}
-        </Typography>
-        <Typography variant="caption" sx={{ pl: "5px" }}>
-          Almacenamiento: {data.orderItems[0].product.internalStorage} GB,
-          sistema operativo: {data.orderItems[0].product.operatingSystem},
-          memoria: {data.orderItems[0].product.ram} MB
-        </Typography>
-        <Typography variant="caption" sx={{ pl: "5px" }}>
-          Unidades: {data.orderItems[0].quantity}
-        </Typography>
+        <AdminMenuProducts products={data.orderItems}/>
       </CardContent>
-      <Box
+      <CardContent
         sx={{
-          width: "200px",
-          textAlign: "right",
+          flex: 1,
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <Button
-          onClick={handleOrder}
-          sx={{
-            bgcolor: "#ed7203",
-            color: "black",
-            width: "90%",
-            margin: "2%",
-            "&:hover": {
-              backgroundColor: "#cf6a0e",
-              color: "black",
-            },
-          }}
-          size="small"
-          variant="contained"
-        >
-          Ver producto
-        </Button>
-      </Box>
+        <Typography variant="subtitle1" color="initial">Estado: {data.status}</Typography>
+      </CardContent>
     </Card>
   );
 };
