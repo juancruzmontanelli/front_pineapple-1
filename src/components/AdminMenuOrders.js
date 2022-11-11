@@ -57,7 +57,7 @@ export default function AdminMenuOrders( {stat, id }) {
     e.preventDefault()
 
     axios
-        .put(`/api/history/update/${id}`, { status:e.target.innerText })
+        .put(`/api/cart/history/update/${id}`, { status:e.target.innerText })
         .then(() => {
         })
         .catch((error) => {
