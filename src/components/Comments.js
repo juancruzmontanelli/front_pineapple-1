@@ -103,77 +103,77 @@ const Comments = ({ product }) => {
         )}
         {comments.promedio > 0 ? (
           <>
-            <Grid item xs={12}>
+            <Grid item xs={12} display='flex' justifyContent='center' alignItems='center'> <Typography variant="h6">OPINIONES DEL PRODUCTO</Typography></Grid>
+            
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="right"
+              alignItems={"right"}
+            >
               <Box
                 display={"flex"}
                 flexDirection={"column"}
                 justifyContent="center"
                 alignItems={"center"}
+                marginRight={7}
               >
-                <Typography marginBottom={1} marginRight={5} variant="h6">
-                  OPINIONES DEL PRODUCTO
+                <Typography variant="h3">
+                  {Number(comments.promedio) > 0
+                    ? Number(comments.promedio)
+                    : ""}
                 </Typography>
-                <Box
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent="center"
-                  alignItems={"center"}
-                >
-                  <Typography variant="h4">
-                    {Number(comments.promedio) > 0
-                      ? Number(comments.promedio)
-                      : ""}
-                  </Typography>
 
-                  <Rating
-                    readOnly
-                    name="simple-controlled"
-                    value={Number(comments.promedio)}
-                    sx={{ mb: "10px" }}
-                  />
-                  <Typography variant="subtitle1">
-                    (Cantidad de valoraciones: {comments.comments.length})
-                  </Typography>
-                </Box>
+                <Rating
+                  name="half-rating-read"
+                  precision={0.5}
+                  readOnly
+                  value={Number(comments.promedio)}
+                  sx={{ mb: "10px" }}
+                />
+                <Typography variant="subtitle1">
+                  (Cantidad de valoraciones: {comments.comments.length})
+                </Typography>
               </Box>
             </Grid>
-            <Box
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              width="100%"
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="left"
+              alignItems={"left"}
               marginTop={5}
             >
-              <Box>
-                <Grid
-                  marginBottom={10}
-                  marginLeft={3}
-                  item
-                  xs={12}
-                  display="flex"
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                >
-                  {comments.comments.map((comment) => (
-                    <Box key={comment.id}>
-                      <Rating
-                        readOnly
-                        name="simple-controlled"
-                        value={comment.rating}
-                        sx={{ mb: "10px" }}
-                      />
-                      <Typography key={comment.id}>
-                        <strong>{comment.name}</strong>
-                      </Typography>
-                      <Typography align={"justify"} justifyContent="center">
-                        {comment.commit}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Grid>
-              </Box>
-            </Box>
+              <Grid
+                marginBottom={10}
+                marginTop={2}
+                marginLeft={7}
+                item
+                xs={12}
+                display="flex"
+                flexDirection={"column"}
+                justifyContent={"left"}
+                alignItems={"left"}
+              >
+                {comments.comments.map((comment) => (
+                  <Box key={comment.id}>
+                    <Rating
+                      readOnly
+                      name="simple-controlled"
+                      value={comment.rating}
+                      sx={{ mb: "10px" }}
+                    />
+                    <Typography key={comment.id}>
+                      <strong>{comment.name}</strong>
+                    </Typography>
+                    <Typography align={"justify"} justifyContent="center">
+                      {comment.commit}
+                    </Typography>
+                  </Box>
+                ))}
+              </Grid>
+            </Grid>
           </>
         ) : (
           <Grid
