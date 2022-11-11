@@ -1,11 +1,13 @@
 import { Grid, Typography, Button, styled, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useMatch, useNavigate } from "react-router";
 import axios from "axios";
+import { Delete } from "@mui/icons-material";
 
 const HomeSidebar = () => {
   const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
+  const isFilterActive = !useMatch("/");
 
   useEffect(() => {
     axios
@@ -36,6 +38,10 @@ const HomeSidebar = () => {
     );
   };
 
+  const handleRemoveFilters = () => {
+    navigate("/");
+  };
+
   return (
     <Grid
       xs={3}
@@ -48,7 +54,22 @@ const HomeSidebar = () => {
       <Typography sx={{ fontSize: "24px", fontWeight: "300", mb: "20px" }}>
         Filtrar por
       </Typography>
-
+      {isFilterActive && (
+        <Box>
+          <Button
+            startIcon={<Delete />}
+            size="small"
+            color="error"
+            sx={{
+              mb: "10px",
+              mt: "-10px",
+            }}
+            onClick={handleRemoveFilters}
+          >
+            Quitar filtros
+          </Button>
+        </Box>
+      )}
       <Box
         sx={{ mb: "10px" }}
         display="flex"

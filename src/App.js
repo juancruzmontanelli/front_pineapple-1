@@ -19,7 +19,6 @@ import { setCart } from "./state/cart";
 import CarouselComponent from "./components/Carousel";
 import { useMatch } from "react-router-dom";
 
-
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -45,7 +44,7 @@ function App() {
   return (
     <Box display="flex" flexDirection="column">
       <Navbar />
-        {isHome || isSearch ? (<CarouselComponent />) : (null) }
+      {(isHome || isSearch) && <CarouselComponent />}
       <Container flex={1} sx={{ minHeight: "calc(100vh - 301px)" }}>
         <Routes>
           {/* Rutas publicas */}
